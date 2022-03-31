@@ -26,12 +26,6 @@ for detailed options
 
 ## Results
 ### Transfer learning in UCR datasets
+![Encoder_cls](png/encoder_cls_results.png "Classification test accuracy using FCN and Dilated CNN on 128 UCR datasets")
 
-![FCN](png/fcn_finetuning.png "FCN Fine-tuning accuracy")![FCN-RNN](/png/fcn_rnn_finetuning.png "FCN-RNN fine-tuning accuracy")
-
-<p align="center">*FCN and FCN-RNN fine-tuning accuracy*</p>
-
-![Dilated3CNN](/png/dilated3cnn_finetuning.png "Dilated-3 CNN Fine-tuning accuracy")
-
-![Dilated3CNN](/png/dilated3cnn_rnn_finetuning.png "Dilated-3 CNN-RNN fine-tuning accuracy")
-<center>Dilated-3 CNN and  Dilated-3 CNN-RNN fine-tuning accuracy</center>
+![Transfer](png/transfer_learning_results.png "Comparison of pre-training methods based on transfer learning")
