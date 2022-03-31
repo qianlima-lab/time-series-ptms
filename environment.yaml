@@ -1,0 +1,12 @@
+name: from_transfer_to_transformer
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - python=3.9.7
+  - numpy=1.21.2
+  - pytorch=1.10.2
+  - scikit-learn=1.0.2
+  - scipy=1.7.3
+  - pandas=1.4.1

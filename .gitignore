@@ -1,0 +1,15 @@
+*.log
+
+dilated_result
+fcn_result
+fcn_result_v2
+result_v2
+rnn_result
+__pychache__
+data/__pychache__
+logs_v2
+logs_v3
+logs
+result_v3
+scripts
+cache
