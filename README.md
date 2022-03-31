@@ -1,6 +1,7 @@
-# FromTransfertoTransformer
+# From Transfer to Transformer
 
-This is the training code for our paper *"From Transfer to Transformer"*
+This is the training code for our paper *"From Transfer to Transformer: A Survey on
+Pre-Training Time-series Models"*
 
 
 ## Usage
@@ -18,7 +19,14 @@ python train.py --dataroot [your UCR datasets directory] --dataset [name of the 
 ```
 
 run 
-```bash
+```bash 
 python train.py -h
 ```
 for detailed options
+
+## Results
+### Transfer learning in UCR datasets
+![FCN](https://github.com/qianlima-lab/transfer-to-transformer-tsm/png/fcn_finetuning.png "FCN Fine-tuning accuracy")
+![FCN-RNN](/png/fcn_rnn_finetuning.png "FCN-RNN fine-tuning accuracy")
+![Dilated3CNN](/png/dilated3cnn_finetuning.png "Dilated-3 CNN Fine-tuning accuracy")
+![Dilated3CNN](/png/dilated3cnn_rnn_finetuning.png "Dilated-3 CNN-RNN fine-tuning accuracy")
