@@ -26,7 +26,16 @@ for detailed options
 
 ## Results
 ### Transfer learning in UCR datasets
-![FCN](https://github.com/qianlima-lab/transfer-to-transformer-tsm/png/fcn_finetuning.png "FCN Fine-tuning accuracy")
-![FCN-RNN](/png/fcn_rnn_finetuning.png "FCN-RNN fine-tuning accuracy")
+<figure class="half">
+    <img src="png/fcn_finetuning.png">
+    <img src="hpng/fcn_finetuning.png">
+</figure>
+
+![FCN](png/fcn_finetuning.png "FCN Fine-tuning accuracy")![FCN-RNN](/png/fcn_rnn_finetuning.png "FCN-RNN fine-tuning accuracy")
+
+<center>FCN and FCN-RNN fine-tuning accuracy</center>
+
 ![Dilated3CNN](/png/dilated3cnn_finetuning.png "Dilated-3 CNN Fine-tuning accuracy")
+
 ![Dilated3CNN](/png/dilated3cnn_rnn_finetuning.png "Dilated-3 CNN-RNN fine-tuning accuracy")
+<center>Dilated-3 CNN and  Dilated-3 CNN-RNN fine-tuning accuracy</center>
