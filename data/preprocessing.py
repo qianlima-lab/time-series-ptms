@@ -1,29 +1,28 @@
-from textwrap import fill
-import pandas as pd
-from sklearn.model_selection import StratifiedShuffleSplit, StratifiedKFold
-from sklearn import preprocessing
-import numpy as np
 import os
+
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold
 
 
 def load_data(dataroot, dataset):
-    train = pd.read_csv(os.path.join(dataroot, dataset, dataset+'_TRAIN.tsv'), sep='\t', header=None)
+    train = pd.read_csv(os.path.join(dataroot, dataset, dataset + '_TRAIN.tsv'), sep='\t', header=None)
     train_x = train.iloc[:, 1:]
     train_target = train.iloc[:, 0]
 
-    test = pd.read_csv(os.path.join(dataroot, dataset, dataset+'_TEST.tsv'), sep='\t', header=None)
+    test = pd.read_csv(os.path.join(dataroot, dataset, dataset + '_TEST.tsv'), sep='\t', header=None)
     test_x = test.iloc[:, 1:]
     test_target = test.iloc[:, 0]
 
-    
     sum_dataset = pd.concat([train_x, test_x]).to_numpy(dtype=np.float32)
-    #sum_dataset = sum_dataset.fillna(sum_dataset.mean()).to_numpy(dtype=np.float32)
+    # sum_dataset = sum_dataset.fillna(sum_dataset.mean()).to_numpy(dtype=np.float32)
     sum_target = pd.concat([train_target, test_target]).to_numpy(dtype=np.float32)
     # sum_target = sum_target.fillna(sum_target.mean()).to_numpy(dtype=np.float32)
-    
+
     num_classes = len(np.unique(sum_target))
 
     return sum_dataset, sum_target, num_classes
+
 
 def transfer_labels(labels):
     indicies = np.unique(labels)
@@ -32,12 +31,13 @@ def transfer_labels(labels):
     for i in range(num_samples):
         new_label = np.argwhere(labels[i] == indicies)[0][0]
         labels[i] = new_label
-    
+
     return labels
+
 
 def k_fold(data, target):
     skf = StratifiedKFold(5, shuffle=True)
-    #skf = StratifiedShuffleSplit(5)
+    # skf = StratifiedShuffleSplit(5)
     train_sets = []
     train_targets = []
 
@@ -62,22 +62,28 @@ def k_fold(data, target):
         val_sets.append(raw_set[val_index])
         val_targets.append(raw_target[val_index])
 
-    return np.array(train_sets), np.array(train_targets), np.array(val_sets), np.array(val_targets), np.array(test_sets), np.array(test_targets)
+    return train_sets, train_targets, val_sets, val_targets, test_sets, test_targets
 
 
 def normalize_per_series(data):
     std_ = data.std(axis=1, keepdims=True)
+    std_[std_ == 0] = 1.0
     return (data - data.mean(axis=1, keepdims=True)) / std_
 
 
-def fill_nan_value(train_set, val_set, test_set):
+def normalize_train_val_test(train_set, val_set, test_set):
+    mean = train_set.mean()
+    std = train_set.std()
+    return (train_set - mean) / std, (val_set - mean) / std, (test_set - mean) / std
 
+
+def fill_nan_value(train_set, val_set, test_set):
     ind = np.where(np.isnan(train_set))
     col_mean = np.nanmean(train_set, axis=0)
     col_mean[np.isnan(col_mean)] = 1e-6
 
     train_set[ind] = np.take(col_mean, ind[1])
-    
+
     ind_val = np.where(np.isnan(val_set))
     val_set[ind_val] = np.take(col_mean, ind_val[1])
 
@@ -85,7 +91,6 @@ def fill_nan_value(train_set, val_set, test_set):
     test_set[ind_test] = np.take(col_mean, ind_test[1])
     return train_set, val_set, test_set
 
+
 if __name__ == '__main__':
     pass
-
-

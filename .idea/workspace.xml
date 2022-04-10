@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="326964d5-a71b-4a30-b04c-18aa7905851a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/remote-mappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ts2vec_cls/train_fcn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tstcc_cls/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/FromTransfertoTransformer-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FromTransfertoTransformer-master.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/preprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/loss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="27HO82iBzfpfNWMLazGVL84EJRY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="L:/pycharm_work/TS-TCC-main_mod" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.main_ucr">
+    <configuration name="generator_dilated" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FromTransfertoTransformer-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/generator_dilated.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="generator_pretrain_cls" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FromTransfertoTransformer-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/generator_pretrain_cls.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="generator_ts2vec" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FromTransfertoTransformer-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ts2vec_cls/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ts2vec_cls/scripts/generator_ts2vec.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_ucr" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FromTransfertoTransformer-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tstcc_cls" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tstcc_cls/main_ucr.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FromTransfertoTransformer-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/train_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main_ucr" />
+        <item itemvalue="Python.generator_dilated" />
+        <item itemvalue="Python.generator_pretrain_cls" />
+        <item itemvalue="Python.train_test" />
+        <item itemvalue="Python.generator_ts2vec" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="326964d5-a71b-4a30-b04c-18aa7905851a" name="Default Changelist" comment="" />
+      <created>1648973381987</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648973381987</updated>
+      <workItem from="1648973384679" duration="68426000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2287" y="74" key="#Deployment" timestamp="1649057668654">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state x="2287" y="74" key="#Deployment/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649057668654" />
+    <state x="367" y="74" key="#Deployment/0.0.1549.831@0.0.1549.831" timestamp="1648974149767" />
+    <state x="556" y="169" key="FileChooserDialogImpl" timestamp="1649512338917">
+      <screen x="0" y="0" width="1549" height="831" />
+    </state>
+    <state x="2476" y="169" key="FileChooserDialogImpl/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1648995293527" />
+    <state x="556" y="169" key="FileChooserDialogImpl/0.0.1549.831@0.0.1549.831" timestamp="1649512338917" />
+    <state width="1506" height="239" key="GridCell.Tab.0.bottom" timestamp="1649557765213">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state width="1506" height="239" key="GridCell.Tab.0.bottom/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649557765213" />
+    <state width="1506" height="312" key="GridCell.Tab.0.bottom/0.0.1549.831@0.0.1549.831" timestamp="1649511972782" />
+    <state width="1506" height="239" key="GridCell.Tab.0.center" timestamp="1649557765212">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state width="1506" height="239" key="GridCell.Tab.0.center/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649557765212" />
+    <state width="1506" height="312" key="GridCell.Tab.0.center/0.0.1549.831@0.0.1549.831" timestamp="1649511972781" />
+    <state width="1506" height="239" key="GridCell.Tab.0.left" timestamp="1649557765212">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state width="1506" height="239" key="GridCell.Tab.0.left/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649557765212" />
+    <state width="1506" height="312" key="GridCell.Tab.0.left/0.0.1549.831@0.0.1549.831" timestamp="1649511972779" />
+    <state width="1506" height="239" key="GridCell.Tab.0.right" timestamp="1649557765213">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state width="1506" height="239" key="GridCell.Tab.0.right/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649557765213" />
+    <state width="1506" height="312" key="GridCell.Tab.0.right/0.0.1549.831@0.0.1549.831" timestamp="1649511972782" />
+    <state x="2204" y="60" key="SettingsEditor" timestamp="1649057655305">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state x="2204" y="60" key="SettingsEditor/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649057655305" />
+    <state x="284" y="60" key="SettingsEditor/0.0.1549.831@0.0.1549.831" timestamp="1648974066088" />
+    <state x="580" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1648973913331">
+      <screen x="0" y="0" width="1549" height="831" />
+    </state>
+    <state x="580" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1549.831@0.0.1549.831" timestamp="1648973913331" />
+    <state x="2501" y="300" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1649057653455">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state x="2501" y="300" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1649057653455" />
+    <state x="581" y="300" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/0.0.1549.831@0.0.1549.831" timestamp="1648973588806" />
+    <state x="2590" y="145" width="326" height="538" key="ftp.server.browser" timestamp="1648995333469">
+      <screen x="1920" y="0" width="1549" height="831" />
+    </state>
+    <state x="2590" y="145" key="ftp.server.browser/0.0.1549.831/1920.0.1549.831@1920.0.1549.831" timestamp="1648995333469" />
+    <state x="670" y="145" width="326" height="538" key="ftp.server.browser/0.0.1549.831@0.0.1549.831" timestamp="1648974147711" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$generator_ts2vec.coverage" NAME="generator_ts2vec Coverage Results" MODIFIED="1649475532032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ts2vec_cls/scripts" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$generator_pretrain_cls.coverage" NAME="generator_pretrain_cls Coverage Results" MODIFIED="1649494274523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$generator_dilated.coverage" NAME="generator_dilated Coverage Results" MODIFIED="1649511972732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$train_fcn.coverage" NAME="train_fcn Coverage Results" MODIFIED="1649061761660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ts2vec_cls" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$train_test.coverage" NAME="train_test Coverage Results" MODIFIED="1649493007578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$train_tsm__1_.coverage" NAME="train_tsm (1) Coverage Results" MODIFIED="1649054225090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ts2vec_cls" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$test_env.coverage" NAME="test_env Coverage Results" MODIFIED="1648974173712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$test_path.coverage" NAME="test_path Coverage Results" MODIFIED="1649062156977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$main_ucr.coverage" NAME="main_ucr Coverage Results" MODIFIED="1649557765203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tstcc_cls" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$generator_fcn.coverage" NAME="generator_fcn Coverage Results" MODIFIED="1649293714530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$generator_seed_fcn.coverage" NAME="generator_seed_fcn Coverage Results" MODIFIED="1649294676099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/FromTransfertoTransformer_master$train_tsm.coverage" NAME="train_tsm Coverage Results" MODIFIED="1649475188619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ts2vec_cls" />
+  </component>
+</project>

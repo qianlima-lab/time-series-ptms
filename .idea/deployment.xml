@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" serverName="lz@175.178.13.37:6222">
     <serverData>
-      <paths name="hm@222.201.187.121:22 password (1)">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="hm_idec_test">
+      <paths name="guest@175.178.13.37:6222">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -51,6 +44,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="lz@175.178.13.37:6222">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/SSD/lz/time_tsm" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="lz@222.201.144.244:22">
         <serverdata>
           <mappings>
@@ -59,13 +59,6 @@
         </serverdata>
       </paths>
       <paths name="lz@222.201.144.245:22">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="lz@222.201.144.245:22 (1)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
