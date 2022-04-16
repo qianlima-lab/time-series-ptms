@@ -8,7 +8,7 @@ Time-series Pre-Training Models"*
 1. To pre-train a model on your own dataset, run
 
 ```bash
-python train.py --dataroot [your UCR datasets directory] --task [Type of pre-training task: classification or reconstruction] --dataset [name of the dataset you want to pretrain on] --backbone [fcn or dilated] --mode pretrain ...
+python train.py --dataroot [your UCR datasets directory] --task [type of pre-training task: classification or reconstruction] --dataset [name of the dataset you want to pretrain on] --backbone [fcn or dilated] --mode pretrain ...
 ```
 
 2. To finetune (classification) the model on a dataset, run
@@ -36,21 +36,21 @@ For detailed options and examples, please refer to ```scripts/transfer_pretrain_
 | 6  | [SelfTime](https://openreview.net/pdf?id=qFQTP00Q0kp) | Contrastive Learning | 2021 | Submitted to ICLR | [github-link](https://github.com/haoyfan/SelfTime) |
 
 
-1. Pre-training and classification using TS2Vec model on a UCR dataset, run
+1. Pre-training and classification using **TS2Vec** model on a UCR dataset, run
 ```bash 
 python train_tsm.py --dataroot [your UCR datasets directory] --normalize_way single ...
 ```
 
 For detailed options and examples, please refer to ```ts2vec_cls/scripts/ts2vec_tsm_single_norm.sh```
 
-2. Pre-training and classification using TS-TCC model on a UCR dataset, run
+2. Pre-training and classification using **TS-TCC** model on a UCR dataset, run
 ```bash 
 python main_ucr.py --dataset [name of the ucr dataset] --device cuda:0 --save_csv_name tstcc_ucr_ --seed 42;
 ```
 
 For detailed options and examples, please refer to ```tstcc_cls/scripts/fivefold_tstcc_ucr.sh```
 
-3. To pre-train using TST model on a UCR dataset, run
+3. To pre-train using **TST** model on a UCR dataset, run
 ```bash 
 python main.py --data_dir [the path of the dataset] --output_dir [path to save the result] --data_class tsra --random_seed 42;
 ```
@@ -65,19 +65,19 @@ For detailed options and examples for training on the full UCR128 dataset, pleas
 python src/main.py -h
 ```
 
-4. Pre-training and classification using Triplet-loss model on a UCR dataset, run
+4. Pre-training and classification using **Triplet-loss** model on a UCR dataset, run
 ```bash 
 python ucr.py --dataset [name of the ucr dataset] --path [your UCR datasets directory] --hyper [hyperparameters file path(./default_hyperparameters.json for default option)] --cuda
 ```
 
 For detailed options and examples, please refer to ```tloss_cls/scripts/ucr.sh```
 
-5. Pre-training and classification using TNC model on a UCR dataset, run
+5. Pre-training and classification using **TNC** model on a UCR dataset, run
 ```bash 
 python -m tnc.tnc --data ucr --data_root [your UCR datasets directory] --dataset [dataset name] --random_seed 42
 ```
 
-6. Pre-training and classification using SelfTime model on a UCR dataset, run
+6. Pre-training and classification using **SelfTime** model on a UCR dataset, run
 ```bash
 python -u train_ssl.py --dataset_name [dataset name] --model_name SelfTime --ucr_path [your UCR datasets directory] --random_seed 42
 ```
