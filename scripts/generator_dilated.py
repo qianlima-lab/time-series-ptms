@@ -44,7 +44,7 @@ for dataset in ucr_dataset:
                 '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataset ' + dataset
                 + ' --mode directly_cls --epoch 1000 --depth 3 ' +
-                ' --loss cross_entropy --save_csv_name dilated3_lin_single_norm_0409_ --cuda cuda:1' + ';\n')
+                ' --loss cross_entropy --save_csv_name dilated3_lin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 i = 0
 for dataset in ucr_dataset:
@@ -58,7 +58,7 @@ for dataset in ucr_dataset:
                 '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataset ' + dataset
                 + ' --mode directly_cls --epoch 1000 --depth 3 ' +
-                ' --loss cross_entropy --save_csv_name dilated3_nonlin_single_norm_0409_ --cuda cuda:1' + ';\n')
+                ' --loss cross_entropy --save_csv_name dilated3_nonlin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 i = 0
 for dataset in ucr_dataset:
@@ -72,7 +72,7 @@ for dataset in ucr_dataset:
                 '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataset ' + dataset
                 + ' --mode directly_cls --epoch 1000 --depth 10 ' +
-                ' --loss cross_entropy --save_csv_name dilated10_lin_single_norm_0409_ --cuda cuda:1' + ';\n')
+                ' --loss cross_entropy --save_csv_name dilated10_lin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 i = 0
 for dataset in ucr_dataset:
@@ -86,7 +86,7 @@ for dataset in ucr_dataset:
                 '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataset ' + dataset
                 + ' --mode directly_cls --epoch 1000 --depth 10 ' +
-                ' --loss cross_entropy --save_csv_name dilated10_nonlin_single_norm_0409_ --cuda cuda:1' + ';\n')
+                ' --loss cross_entropy --save_csv_name dilated10_nonlin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 
 ## nohup ./scripts/dilated_single_norm.sh &

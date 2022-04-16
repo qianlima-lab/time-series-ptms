@@ -65,7 +65,7 @@ for dataset in source_datasets:  ## cls pretrain
     '''
     with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
         f.write(
-            'python train.py ---backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+            'python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
             '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way train_set '
             '--dataset ' + dataset
             + ' --mode pretrain --epoch 2000 ' +
