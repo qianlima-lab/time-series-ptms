@@ -23,7 +23,7 @@ run
 python train.py -h
 ```
 
-For detailed options and examples, please refer to ```scripts/transfer_pretrain_finetunse.sh```
+For detailed options and examples, please refer to ```scripts/transfer_pretrain_finetune.sh```
 
 ## Usage (Transformer and Contrastive Learning)
 |  ID   | Method  | Architecture | Year | Press. | Source Code |
@@ -86,4 +86,8 @@ python -u train_ssl.py --dataset_name [dataset name] --model_name SelfTime --ucr
 ### Transfer learning in UCR datasets
 ![Encoder_cls](png/encoder_cls_results.png "Classification test accuracy using FCN and Dilated CNN on 128 UCR datasets")
 
-![Transfer](png/transfer_learning_results.png "Comparison of pre-training methods based on transfer learning")
+![Transfer](png/transfer_learning_cls.png "Comparison of pre-training methods based on transfer learning via classification")
+
+![Transfer](png/transfer_learning_rec_fcn.png "Comparison of pre-training methods based on transfer learning via fcn decoder reconstruction")
+
+![Transfer](png/transfer_learning_rec_rnn.png "Comparison of pre-training methods based on transfer learning via rnn decoder reconstruction")
