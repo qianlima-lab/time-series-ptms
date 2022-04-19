@@ -86,8 +86,8 @@ python -u train_ssl.py --dataset_name [dataset name] --model_name SelfTime --ucr
 ### Transfer learning in UCR datasets
 ![Encoder_cls](png/encoder_cls_results.png "Classification test accuracy using FCN and Dilated CNN on 128 UCR datasets")
 
-![Transfer](png/transfer_learning_cls.png "Comparison of pre-training methods based on transfer learning via classification")
+![Transfer](png/transfer_learning_cls.png "Classification Comparison Results based on Supervised Classification for Transfer Learning")
 
-![Transfer](png/transfer_learning_rec_fcn.png "Comparison of pre-training methods based on transfer learning via fcn decoder reconstruction")
+![Transfer](png/transfer_learning_rec_fcn.png "Classification Comparison Results based on FCN Decoder Reconstruction for Transfer Learning")
 
-![Transfer](png/transfer_learning_rec_rnn.png "Comparison of pre-training methods based on transfer learning via rnn decoder reconstruction")
+![Transfer](png/transfer_learning_rec_rnn.png "Classification Comparison Results based on RNN Decoder Reconstruction for Transfer Learning")
