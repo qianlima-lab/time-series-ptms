@@ -2,7 +2,9 @@ import os
 
 import numpy as np
 import pandas as pd
+from scipy.io.arff import loadarff
 from sklearn.model_selection import StratifiedKFold
+from tslearn.preprocessing import TimeSeriesScalerMeanVariance
 
 
 def load_data(dataroot, dataset):
@@ -21,6 +23,37 @@ def load_data(dataroot, dataset):
 
     num_classes = len(np.unique(sum_target))
 
+    return sum_dataset, sum_target, num_classes
+
+
+def load_UEA(dataroot, dataset):
+    '''
+    scipy 1.3.0 or newer is required to load. Otherwise, the data cannot be loaded.
+    '''
+    train_data = loadarff(os.path.join(dataroot, dataset, dataset + '_TRAIN.arff'))[0]
+    test_data = loadarff(os.path.join(dataroot, dataset, dataset + '_TEST.arff'))[0]
+
+    def extract_data(data):
+        res_data = []
+        res_labels = []
+        for t_data, t_label in data:
+            t_data = np.array([d.tolist() for d in t_data])
+            t_label = t_label.decode("utf-8")
+            res_data.append(t_data)
+            res_labels.append(t_label)
+        return np.array(res_data).swapaxes(1, 2), np.array(res_labels)
+
+    train_X, train_y = extract_data(train_data)
+    test_X, test_y = extract_data(test_data)
+
+    labels = np.unique(train_y)
+    transform = {k: i for i, k in enumerate(labels)}
+    train_y = np.vectorize(transform.get)(train_y)
+    test_y = np.vectorize(transform.get)(test_y)
+    sum_dataset = np.concatenate((train_X, test_X), axis=0,
+                                 dtype=np.float32)  # (num_size, series_length, num_dimensions)
+    sum_target = np.concatenate((train_y, test_y), axis=0, dtype=np.float32)
+    num_classes = len(np.unique(sum_target))
     return sum_dataset, sum_target, num_classes
 
 
@@ -75,6 +108,13 @@ def normalize_train_val_test(train_set, val_set, test_set):
     mean = train_set.mean()
     std = train_set.std()
     return (train_set - mean) / std, (val_set - mean) / std, (test_set - mean) / std
+
+
+def normalize_uea_set(data_set):
+    '''
+    The function is the same as normalize_per_series, but can be used for multiple variables.
+    '''
+    return TimeSeriesScalerMeanVariance().fit_transform(data_set)
 
 
 def fill_nan_value(train_set, val_set, test_set):

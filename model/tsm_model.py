@@ -22,12 +22,12 @@ class SqueezeChannels(nn.Module):
 
 
 class FCN(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes, input_size=1):
         super(FCN, self).__init__()
 
         self.num_classes = num_classes
         self.conv_block1 = nn.Sequential(
-            nn.Conv1d(in_channels=1, out_channels=128, kernel_size=8, padding='same'),
+            nn.Conv1d(in_channels=input_size, out_channels=128, kernel_size=8, padding='same'),
             nn.BatchNorm1d(128),
             nn.ReLU()
         )

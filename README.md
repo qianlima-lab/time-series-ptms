@@ -3,6 +3,15 @@
 This is the training code for our paper *"From Transfer to Transformer: A Survey on
 Time-series Pre-Training Models"*
 
+## Data
+The datasets used in this project are as follows:
+* [128 UCR datasets](https://www.cs.ucr.edu/~eamonn/time_series_data_2018/UCRArchive_2018.zip)
+* [30 UEA datasets](http://www.timeseriesclassification.com/Downloads/Archives/Multivariate2018_arff.zip)
+* [ETDataset](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014)
+* [Electricity](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014)
+* [Yahoo dataset](https://webscope.sandbox.yahoo.com/catalog.php?datatype=s&did=70) 
+* [KPI dataset](http://test-10056879.file.myqcloud.com/10056879/test/20180524_78431960010324/KPI%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%86%B3%E8%B5%9B%E6%95%B0%E6%8D%AE%E9%9B%86.zip)
+
 
 ## Usage (Transfer Learning)
 1. To pre-train a model on your own dataset, run

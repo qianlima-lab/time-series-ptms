@@ -21,7 +21,7 @@ def set_seed(args):
 
 def build_model(args):
     if args.backbone == 'fcn':
-        model = FCN(args.num_classes)
+        model = FCN(args.num_classes, args.input_size)
     elif args.backbone == 'dilated':
         model = DilatedConvolution(args.in_channels, args.embedding_channels,
                                    args.out_channels, args.depth, args.reduced_size, args.kernel_size, args.num_classes)
@@ -72,12 +72,13 @@ def evaluate(val_loader, model, classifier, loss, device):
         data, target = data.to(device), target.to(device)
         target = target.to(torch.int64)
         '''
-        val_pred = model(data)
-        val_pred = classifier(val_pred)
-        val_loss += loss(val_pred, target).item()
+        with torch.no_grad():
+            val_pred = model(data)
+            val_pred = classifier(val_pred)
+            val_loss += loss(val_pred, target).item()
 
-        val_accu += torch.sum(torch.argmax(val_pred.data, axis=1) == target)
-        sum_len += len(target)
+            val_accu += torch.sum(torch.argmax(val_pred.data, axis=1) == target)
+            sum_len += len(target)
 
     return val_loss / sum_len, val_accu / sum_len
 

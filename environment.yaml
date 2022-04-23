@@ -10,3 +10,4 @@ dependencies:
   - scikit-learn=1.0.2
   - scipy=1.7.3
   - pandas=1.4.1
+  - tslearn=0.5.2
