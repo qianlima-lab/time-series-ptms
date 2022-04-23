@@ -11,12 +11,12 @@ sys.path.append(rootPath)
 import numpy as np
 import torch
 
-from data.preprocessing import load_data, k_fold, normalize_per_series, fill_nan_value
+from data.preprocessing import k_fold, load_UEA, fill_nan_value, normalize_uea_set
 from tsm_utils import save_cls_result, set_seed
 from tstcc_cls.models.TC import TC
 from tstcc_cls.models.model import base_Model
 from tstcc_cls.trainer.trainer import Trainer_cls
-from tstcc_cls.utils import _logger, generator_ucr, generator_ucr_config
+from tstcc_cls.utils import _logger, generator_uea_config, generator_uea
 
 # Args selections
 start_time = datetime.now()
@@ -34,17 +34,17 @@ parser.add_argument('--seed', default=42, type=int,
 parser.add_argument('--random_seed', type=int, default=42, help='The random seed')
 parser.add_argument('--training_mode', default='self_supervised', type=str,
                     help='Modes of choice: random_init, supervised, self_supervised, fine_tune, train_linear')
-parser.add_argument('--selected_dataset', default='ucr', type=str,
+parser.add_argument('--selected_dataset', default='uea', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')  ## HAR
-parser.add_argument('--dataset', default='ArrowHead', type=str,
+parser.add_argument('--dataset', default='BasicMotions', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')
 parser.add_argument('--logs_save_dir', default='experiments_logs', type=str,
                     help='saving directory')
-parser.add_argument('--device', default='cuda:1', type=str,
+parser.add_argument('--device', default='cuda:0', type=str,
                     help='cpu or cuda')
 parser.add_argument('--home_path', default=home_dir, type=str,
                     help='Project home directory')
-parser.add_argument('--save_csv_name', type=str, default='test_tstcc_cls_0410_')
+parser.add_argument('--save_csv_name', type=str, default='test_tstcc_uea_0423_')
 parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/tstcc_cls/result')
 args = parser.parse_args()
 set_seed(args)
@@ -90,15 +90,15 @@ logger.debug("=" * 45)
 # Load datasets
 data_path = f"./data/{data_type}"
 
-sum_dataset, sum_target, num_classes = load_data(
-    dataroot='/SSD/lz/UCRArchive_2018',
+sum_dataset, sum_target, num_classes = load_UEA(
+    dataroot='/SSD/lz/Multivariate2018_arff',
     dataset=args.dataset)
 # sum_dataset = sum_dataset[..., np.newaxis]
 train_datasets, train_targets, val_datasets, val_targets, test_datasets, test_targets = k_fold(
     sum_dataset, sum_target)
 # print("Start features_len = ", configs.features_len, ", num_classes = ", configs.num_classes)
-generator_ucr_config(data=train_datasets[0], label=train_targets[0], configs=configs)
-if train_datasets[0].shape[1] < 30:
+generator_uea_config(data=train_datasets[0], label=train_targets[0], configs=configs)
+if train_datasets[0].shape[1] <= 30:
     configs.TC.timesteps = 1
 # print("End features_len = ", configs.features_len, ", num_classes = ", configs.num_classes)
 # train_dl, valid_dl, test_dl = data_generator(data_path, configs, training_mode)
@@ -111,19 +111,19 @@ for i in range(5):
     train_data, val_data, test_data = fill_nan_value(train_datasets[i], val_datasets[i], test_datasets[i])
 
     ### normalize
-    train_data = normalize_per_series(train_data)
-    val_data = normalize_per_series(val_data)
-    test_data = normalize_per_series(test_data)
+    train_data = normalize_uea_set(train_data)
+    val_data = normalize_uea_set(val_data)
+    test_data = normalize_uea_set(test_data)
 
-    train_data = train_data[..., np.newaxis]
-    val_data = val_data[..., np.newaxis]
-    test_data = test_data[..., np.newaxis]
+    # train_data = train_data[..., np.newaxis]
+    # val_data = val_data[..., np.newaxis]
+    # test_data = test_data[..., np.newaxis]
 
-    train_dl = generator_ucr(data=train_data, label=train_targets[i],
+    train_dl = generator_uea(data=train_data, label=train_targets[i],
                              configs=configs, training_mode='self_supervised', drop_last=True)
-    valid_dl = generator_ucr(data=val_data, label=val_targets[i],
+    valid_dl = generator_uea(data=val_data, label=val_targets[i],
                              configs=configs, training_mode='self_supervised', drop_last=False)
-    test_dl = generator_ucr(data=test_data, label=test_targets[i],
+    test_dl = generator_uea(data=test_data, label=test_targets[i],
                             configs=configs, training_mode='self_supervised', drop_last=False)
     logger.debug("Data loaded ...")
 
@@ -143,11 +143,11 @@ for i in range(5):
                 test_dl, device, logger, configs, experiment_log_dir, training_mode='self_supervised')
     print("Self_supervised end, start fine_tune!")
     # fine_tune Trainer
-    train_dl = generator_ucr(data=train_data, label=train_targets[i],
+    train_dl = generator_uea(data=train_data, label=train_targets[i],
                              configs=configs, training_mode='fine_tune', drop_last=True)
-    valid_dl = generator_ucr(data=val_data, label=val_targets[i],
+    valid_dl = generator_uea(data=val_data, label=val_targets[i],
                              configs=configs, training_mode='fine_tune', drop_last=False)
-    test_dl = generator_ucr(data=test_data, label=test_targets[i],
+    test_dl = generator_uea(data=test_data, label=test_targets[i],
                             configs=configs, training_mode='fine_tune', drop_last=False)
 
     train_acc, val_acc, test_acc = Trainer_cls(model, temporal_contr_model, model_optimizer, temporal_contr_optimizer,

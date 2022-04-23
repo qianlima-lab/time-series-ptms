@@ -33,9 +33,47 @@ def generator_ucr_config(data, label, configs):
 
 
 def generator_ucr(data, label, configs, training_mode, drop_last=True):
+    # print("Raw data shape = ", data.shape)
     data = np.reshape(data, (data.shape[0], -1))
+    # print("New data shape = ", data.shape)
     data_dict = dict()
     data_dict["samples"] = torch.from_numpy(data).unsqueeze(1)
+    # print("samples data shape = ", data_dict["samples"].shape)
+    data_dict["labels"] = torch.from_numpy(label)
+
+    tr_dataset = Load_Dataset(data_dict, configs, training_mode)
+
+    tr_loader = torch.utils.data.DataLoader(dataset=tr_dataset, batch_size=configs.batch_size,
+                                            shuffle=True, drop_last=drop_last,
+                                            num_workers=0)
+
+    return tr_loader
+
+
+def generator_uea_config(data, label, configs):
+    # X = np.reshape(data, (data.shape[0], -1))
+    Y = label
+    num_class = np.unique(Y).shape[0]
+    series_len = data.shape[1]
+    for i in range(3):
+        if series_len % 2 == 1:
+            series_len = series_len + 3
+            series_len = series_len // 2
+        else:
+            series_len = series_len // 2 + 1
+
+    configs.features_len = series_len
+    configs.num_classes = num_class
+    configs.input_channels = data.shape[2]
+
+    while data.shape[0] < configs.batch_size:
+        configs.batch_size = configs.batch_size // 2
+
+
+def generator_uea(data, label, configs, training_mode, drop_last=True):
+    data_dict = dict()
+    print("shape = ", data.shape)
+    data_dict["samples"] = torch.from_numpy(data).permute(0, 2, 1)
     data_dict["labels"] = torch.from_numpy(label)
 
     tr_dataset = Load_Dataset(data_dict, configs, training_mode)

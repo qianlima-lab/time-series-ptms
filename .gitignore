@@ -14,3 +14,7 @@ result_v3
 scripts
 cache
 /.idea/
+/test/test_env.py
+/test/test_path.py
+/test/train_test.py
+/ts2vec_cls/train_nonlin.py
