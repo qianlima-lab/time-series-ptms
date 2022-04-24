@@ -11,7 +11,7 @@ sys.path.append(rootPath)
 import numpy as np
 import torch
 
-from data.preprocessing import load_data, k_fold, normalize_per_series, fill_nan_value
+from data.preprocessing import load_data, k_fold, normalize_per_series, fill_nan_value, transfer_labels
 from tsm_utils import save_cls_result, set_seed
 from tstcc_cls.models.TC import TC
 from tstcc_cls.models.model import base_Model
@@ -36,15 +36,15 @@ parser.add_argument('--training_mode', default='self_supervised', type=str,
                     help='Modes of choice: random_init, supervised, self_supervised, fine_tune, train_linear')
 parser.add_argument('--selected_dataset', default='ucr', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')  ## HAR
-parser.add_argument('--dataset', default='ArrowHead', type=str,
+parser.add_argument('--dataset', default='CBF', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')
 parser.add_argument('--logs_save_dir', default='experiments_logs', type=str,
                     help='saving directory')
-parser.add_argument('--device', default='cuda:1', type=str,
+parser.add_argument('--device', default='cuda:0', type=str,
                     help='cpu or cuda')
 parser.add_argument('--home_path', default=home_dir, type=str,
                     help='Project home directory')
-parser.add_argument('--save_csv_name', type=str, default='test_tstcc_cls_0410_')
+parser.add_argument('--save_csv_name', type=str, default='test_tstcc_ucr_0424_')
 parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/tstcc_cls/result')
 args = parser.parse_args()
 set_seed(args)
@@ -93,6 +93,7 @@ data_path = f"./data/{data_type}"
 sum_dataset, sum_target, num_classes = load_data(
     dataroot='/SSD/lz/UCRArchive_2018',
     dataset=args.dataset)
+sum_target = transfer_labels(sum_target)
 # sum_dataset = sum_dataset[..., np.newaxis]
 train_datasets, train_targets, val_datasets, val_targets, test_datasets, test_targets = k_fold(
     sum_dataset, sum_target)

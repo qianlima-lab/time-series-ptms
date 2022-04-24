@@ -51,7 +51,6 @@ def generator_ucr(data, label, configs, training_mode, drop_last=True):
 
 
 def generator_uea_config(data, label, configs):
-    # X = np.reshape(data, (data.shape[0], -1))
     Y = label
     num_class = np.unique(Y).shape[0]
     series_len = data.shape[1]
@@ -73,7 +72,7 @@ def generator_uea_config(data, label, configs):
 def generator_uea(data, label, configs, training_mode, drop_last=True):
     data_dict = dict()
     print("shape = ", data.shape)
-    data_dict["samples"] = torch.from_numpy(data).permute(0, 2, 1)
+    data_dict["samples"] = torch.from_numpy(data)
     data_dict["labels"] = torch.from_numpy(label)
 
     tr_dataset = Load_Dataset(data_dict, configs, training_mode)

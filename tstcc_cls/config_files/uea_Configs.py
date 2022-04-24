@@ -1,12 +1,12 @@
 class Config(object):
     def __init__(self):
         # model configs
-        self.input_channels = 1
+        self.input_channels = 9
         self.kernel_size = 8
         self.stride = 1
         self.final_out_channels = 128
 
-        self.num_classes = 3
+        self.num_classes = 6
         self.dropout = 0.35
         self.features_len = 18
 
