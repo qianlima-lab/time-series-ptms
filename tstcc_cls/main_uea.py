@@ -36,15 +36,15 @@ parser.add_argument('--training_mode', default='self_supervised', type=str,
                     help='Modes of choice: random_init, supervised, self_supervised, fine_tune, train_linear')
 parser.add_argument('--selected_dataset', default='uea', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')  ## HAR
-parser.add_argument('--dataset', default='DuckDuckGeese', type=str,
+parser.add_argument('--dataset', default='EigenWorms', type=str,
                     help='Dataset of choice: sleepEDF, HAR, Epilepsy, pFD')
 parser.add_argument('--logs_save_dir', default='experiments_logs', type=str,
                     help='saving directory')
-parser.add_argument('--device', default='cuda:0', type=str,
+parser.add_argument('--device', default='cuda:1', type=str,
                     help='cpu or cuda')
 parser.add_argument('--home_path', default=home_dir, type=str,
                     help='Project home directory')
-parser.add_argument('--save_csv_name', type=str, default='test_tstcc_uea_0424_')
+parser.add_argument('--save_csv_name', type=str, default='test_tstcc_uea_0425_')
 parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/tstcc_cls/result')
 args = parser.parse_args()
 set_seed(args)
@@ -98,9 +98,13 @@ train_datasets, train_targets, val_datasets, val_targets, test_datasets, test_ta
     sum_dataset, sum_target)
 # print("Start features_len = ", configs.features_len, ", num_classes = ", configs.num_classes)
 generator_uea_config(data=train_datasets[0], label=train_targets[0], configs=configs)
+if args.dataset == 'EigenWorms':
+    configs.augmentation.max_seg = 5
+    configs.batch_size = 8
 if train_datasets[0].shape[1] <= 30:
     configs.TC.timesteps = 1
-print("End features_len = ", configs.features_len, ", num_classes = ", configs.num_classes, ", input_channels = ", configs.input_channels)
+# print("End features_len = ", configs.features_len, ", num_classes = ", configs.num_classes, ", input_channels = ",
+#       configs.input_channels)
 # train_dl, valid_dl, test_dl = data_generator(data_path, configs, training_mode)
 train_accuracies = []
 val_accuracies = []

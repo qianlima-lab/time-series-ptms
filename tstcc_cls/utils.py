@@ -71,7 +71,7 @@ def generator_uea_config(data, label, configs):
 
 def generator_uea(data, label, configs, training_mode, drop_last=True):
     data_dict = dict()
-    print("shape = ", data.shape)
+    # print("shape = ", data.shape)
     data_dict["samples"] = torch.from_numpy(data)
     data_dict["labels"] = torch.from_numpy(label)
 

@@ -1,8 +1,10 @@
+import os
+
+import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.data import Dataset
-import os
-import numpy as np
+
 from .augmentations import DataTransform
 
 
@@ -19,6 +21,10 @@ class Load_Dataset(Dataset):
             X_train = X_train.unsqueeze(2)
 
         if X_train.shape.index(min(X_train.shape)) != 1:  # make sure the Channels in second dim
+            X_train = X_train.permute(0, 2, 1)
+
+        elif X_train.shape.index(min(
+                X_train.shape)) == 1 and config.input_channels > 1:  # make sure part uea datasets the Channels in second dim
             X_train = X_train.permute(0, 2, 1)
 
         if isinstance(X_train, np.ndarray):
@@ -43,13 +49,13 @@ class Load_Dataset(Dataset):
 
 
 def data_generator(data_path, configs, training_mode):
-
     train_dataset = torch.load(os.path.join(data_path, "train.pt"))
     valid_dataset = torch.load(os.path.join(data_path, "val.pt"))
     test_dataset = torch.load(os.path.join(data_path, "test.pt"))
 
     print(type(train_dataset["samples"]))
-    print("Data shape = ", train_dataset["samples"].shape, valid_dataset["samples"].shape, test_dataset["samples"].shape)
+    print("Data shape = ", train_dataset["samples"].shape, valid_dataset["samples"].shape,
+          test_dataset["samples"].shape)
 
     train_dataset = Load_Dataset(train_dataset, configs, training_mode)
     valid_dataset = Load_Dataset(valid_dataset, configs, training_mode)
