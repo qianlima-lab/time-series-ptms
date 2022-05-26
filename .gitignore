@@ -11,10 +11,13 @@ logs_v2
 logs_v3
 logs
 result_v3
-scripts
 cache
 /.idea/
 /test/test_env.py
 /test/test_path.py
 /test/train_test.py
 /ts2vec_cls/train_nonlin.py
+/tloss_cls/*.csv
+/selftime_cls/*.csv
+/tst_cls/*.csv
+/tst_cls/results

@@ -59,17 +59,17 @@ python main_ucr.py --dataset [name of the ucr dataset] --device cuda:0 --save_cs
 
 For detailed options and examples, please refer to ```tstcc_cls/scripts/fivefold_tstcc_ucr.sh```
 
-3. To pre-train using **TST** model on a UCR dataset, run
+3. To pre-train and classification using **TST** model on a UCR dataset, run
 ```bash 
-python main.py --data_dir [the path of the dataset] --output_dir [path to save the result] --data_class tsra --random_seed 42;
+python src/main.py --dataset [dataset name] --data_dir [path of the dataset] --batch_size [batch size] --task pretrain_and_finetune --epochs
 ```
 
-To classification using TST model on a UCR dataset, run
-```bash 
-python main.py --data_dir [the path of the dataset] --output_dir [path to save the result] --data_class tsra --load_model [path where the pretrained model was saved] --task classification --change_output --key_metric accuracy --random_seed 42;
+To do classification task using Transformer encoder on a UCR dataset, run
+```bash
+python src/main.py --dataset [dataset name] --data_dir [path of the dataset] --batch_size [batch size] --task classification --epochs
 ```
 
-For detailed options and examples for training on the full UCR128 dataset, please refer to ```tst_cls/scripts/pretrain_finetune_all.sh``` or simply run 
+For detailed options and examples for training on the full UCR128 dataset, please refer to ```tst_cls/scripts/pretrain_finetune.sh``` and ```tst_cls/scripts/classification.sh```or simply run 
 ```bash
 python src/main.py -h
 ```
@@ -81,15 +81,27 @@ python ucr.py --dataset [name of the ucr dataset] --path [your UCR datasets dire
 
 For detailed options and examples, please refer to ```tloss_cls/scripts/ucr.sh```
 
-5. Pre-training and classification using **TNC** model on a UCR dataset, run
+Pre-training and classification using **Triplet-loss** model on a UEA dataset, run
 ```bash 
-python -m tnc.tnc --data ucr --data_root [your UCR datasets directory] --dataset [dataset name] --random_seed 42
+python uea.py --dataset [name of the uea dataset] --path [your UEA datasets directory] --hyper [hyperparameters file path(./default_hyperparameters.json for default option)] --cuda
 ```
 
-6. Pre-training and classification using **SelfTime** model on a UCR dataset, run
+For detailed options and examples, please refer to ```tloss_cls/scripts/uea.sh```
+
+
+5. Pre-training and classification using **SelfTime** model on a UCR dataset, run
 ```bash
 python -u train_ssl.py --dataset_name [dataset name] --model_name SelfTime --ucr_path [your UCR datasets directory] --random_seed 42
 ```
+
+For detailed options and examples, please refer to ```selftime_cls/scripts/ucr.sh```
+
+## Usage (Visualization)
+* To get the visualization of model's feature map, run
+```bash
+python visualize.py --dataroot [your dataset root] --dataset [dataset name] --backbone [encoder backbone] --graph [cam, heatmap or tsne] 
+```
+* We provide weights of Wine and GunPoint dataset for quick start. 
 
 ## Results
 ### Transfer learning in UCR datasets

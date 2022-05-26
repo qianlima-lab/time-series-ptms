@@ -27,19 +27,22 @@ class FCN(nn.Module):
 
         self.num_classes = num_classes
         self.conv_block1 = nn.Sequential(
-            nn.Conv1d(in_channels=input_size, out_channels=128, kernel_size=8, padding='same'),
+            nn.Conv1d(in_channels=input_size, out_channels=128,
+                      kernel_size=8, padding='same'),
             nn.BatchNorm1d(128),
             nn.ReLU()
         )
 
         self.conv_block2 = nn.Sequential(
-            nn.Conv1d(in_channels=128, out_channels=256, kernel_size=5, padding='same'),
+            nn.Conv1d(in_channels=128, out_channels=256,
+                      kernel_size=5, padding='same'),
             nn.BatchNorm1d(256),
             nn.ReLU()
         )
 
         self.conv_block3 = nn.Sequential(
-            nn.Conv1d(in_channels=256, out_channels=128, kernel_size=3, padding='same'),
+            nn.Conv1d(in_channels=256, out_channels=128,
+                      kernel_size=3, padding='same'),
             nn.BatchNorm1d(128),
             nn.ReLU()
         )
@@ -53,7 +56,13 @@ class FCN(nn.Module):
 
         )
 
-    def forward(self, x):
+    def forward(self, x, vis=False):
+        if vis:
+            with torch.no_grad():
+                vis_out = self.conv_block1(x)
+                vis_out = self.conv_block2(vis_out)
+                vis_out = self.conv_block3(vis_out)
+                return self.network(x), vis_out
         return self.network(x)
 
 
@@ -108,10 +117,12 @@ class DilatedConvolution(nn.Module):
 
         for i in range(depth):
             block_in_channels = in_channels if i == 0 else embedding_channels
-            layers += [DilatedBlock(block_in_channels, embedding_channels, kernel_size, dilation_size)]
+            layers += [DilatedBlock(block_in_channels,
+                                    embedding_channels, kernel_size, dilation_size)]
             dilation_size *= 2
 
-        layers += [DilatedBlock(embedding_channels, reduced_size, kernel_size, dilation_size, final=True)]
+        layers += [DilatedBlock(embedding_channels, reduced_size,
+                                kernel_size, dilation_size, final=True)]
 
         self.global_average_pool = nn.AdaptiveAvgPool1d(1)
 
@@ -122,7 +133,10 @@ class DilatedConvolution(nn.Module):
                                      nn.Linear(reduced_size, out_channels),
                                      )
 
-    def forward(self, x):
+    def forward(self, x, vis=False):
+        if vis:
+            with torch.no_grad():
+                return self.network(x), nn.Sequential(*self.layers)(x)
         return self.network(x)
 
 
@@ -158,9 +172,12 @@ class NonLinearClassifier(nn.Module):
 class RNNDecoder(nn.Module):
     def __init__(self, input_dim=1, embedding_dim=128) -> None:
         super(RNNDecoder, self).__init__()
-        self.grucell1 = nn.GRUCell(input_size=input_dim, hidden_size=embedding_dim)
-        self.grucell2 = nn.GRUCell(input_size=embedding_dim, hidden_size=embedding_dim)
-        self.grucell3 = nn.GRUCell(input_size=embedding_dim, hidden_size=embedding_dim)
+        self.grucell1 = nn.GRUCell(
+            input_size=input_dim, hidden_size=embedding_dim)
+        self.grucell2 = nn.GRUCell(
+            input_size=embedding_dim, hidden_size=embedding_dim)
+        self.grucell3 = nn.GRUCell(
+            input_size=embedding_dim, hidden_size=embedding_dim)
 
         self.linear = nn.Linear(in_features=embedding_dim, out_features=1)
 
@@ -179,34 +196,39 @@ class RNNDecoder(nn.Module):
 def conv_out_len(seq_len, ker_size, stride, dilation, stack):
     i = 0
     for _ in range(stack):
-        seq_len = int((seq_len + (ker_size[i] - 1) - dilation * (ker_size[i] - 1) - 1) / stride + 1)
+        seq_len = int(
+            (seq_len + (ker_size[i] - 1) - dilation * (ker_size[i] - 1) - 1) / stride + 1)
         i = i + 1
     return seq_len
 
 
 class FCNDecoder(nn.Module):
-    ## The formula for padding='SAME'，padding = (kernel_size - 1) / 2
-    ## Ref: https://blog.csdn.net/crystal_sugar/article/details/105547838, http://www.itsnl.cn/16590.html
+    # The formula for padding='SAME'，padding = (kernel_size - 1) / 2
+    # Ref: https://blog.csdn.net/crystal_sugar/article/details/105547838, http://www.itsnl.cn/16590.html
     def __init__(self, num_classes, seq_len=None, input_size=None):
         super(FCNDecoder, self).__init__()
 
         self.num_classes = num_classes
-        self.compressed_len = conv_out_len(seq_len=seq_len, ker_size=[3, 5, 7], stride=1, dilation=1, stack=3)
+        self.compressed_len = conv_out_len(seq_len=seq_len, ker_size=[
+                                           3, 5, 7], stride=1, dilation=1, stack=3)
 
         self.conv_trans_block1 = nn.Sequential(
-            nn.ConvTranspose1d(in_channels=128, out_channels=128, kernel_size=3, padding=1, output_padding=0),
+            nn.ConvTranspose1d(in_channels=128, out_channels=128,
+                               kernel_size=3, padding=1, output_padding=0),
             nn.BatchNorm1d(128),
             nn.ReLU()
         )
 
         self.conv_trans_block2 = nn.Sequential(
-            nn.ConvTranspose1d(in_channels=128, out_channels=256, kernel_size=5, padding=2, output_padding=0),
+            nn.ConvTranspose1d(in_channels=128, out_channels=256,
+                               kernel_size=5, padding=2, output_padding=0),
             nn.BatchNorm1d(256),
             nn.ReLU()
         )
 
         self.conv_trans_block3 = nn.Sequential(
-            nn.ConvTranspose1d(in_channels=256, out_channels=128, kernel_size=7, padding=3, output_padding=0),
+            nn.ConvTranspose1d(in_channels=256, out_channels=128,
+                               kernel_size=7, padding=3, output_padding=0),
             nn.BatchNorm1d(128),
             nn.ReLU()
         )
