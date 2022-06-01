@@ -21,3 +21,10 @@ cache
 /selftime_cls/*.csv
 /tst_cls/*.csv
 /tst_cls/results
+/scripts/generator_uea.py
+/test/fcn_uea.py
+/test/dilated_uea.py
+/visualize_test.py
+/test/Wine/
+/test/Wine/test_dir
+/scripts/ex1_trasfer_finetune.sh

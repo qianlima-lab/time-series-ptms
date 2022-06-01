@@ -168,6 +168,36 @@ class NonLinearClassifier(nn.Module):
         return self.net(x)
 
 
+class NonLinearClassifierVis(nn.Module):
+    def __init__(self, input_dim, embedding_dim, output_dim, dropout=0.2) -> None:
+        super(NonLinearClassifierVis, self).__init__()
+
+        self.dense = nn.Linear(input_dim, embedding_dim)
+        self.batchnorm = nn.BatchNorm1d(embedding_dim)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(dropout)
+        self.dense2 = nn.Linear(embedding_dim, output_dim)
+
+        self.net = nn.Sequential(
+            self.dense,
+            self.batchnorm,
+            self.relu,
+            self.dropout,
+            self.dense2,
+            nn.Softmax(dim=1)
+        )
+
+    def forward(self, x, vis=False):
+        if vis:
+            with torch.no_grad():
+                x_out = self.dense(x)
+                x_out = self.batchnorm(x_out)
+                x_out = self.relu(x_out)
+                x_out = self.dropout(x_out)
+                return self.net(x), x_out
+        return self.net(x)
+
+
 # for single step
 class RNNDecoder(nn.Module):
     def __init__(self, input_dim=1, embedding_dim=128) -> None:
@@ -210,7 +240,7 @@ class FCNDecoder(nn.Module):
 
         self.num_classes = num_classes
         self.compressed_len = conv_out_len(seq_len=seq_len, ker_size=[
-                                           3, 5, 7], stride=1, dilation=1, stack=3)
+            3, 5, 7], stride=1, dilation=1, stack=3)
 
         self.conv_trans_block1 = nn.Sequential(
             nn.ConvTranspose1d(in_channels=128, out_channels=128,

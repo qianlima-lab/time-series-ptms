@@ -6,8 +6,8 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from data.dataloader import UCRDataset
-from data.preprocessing import normalize_per_series, fill_nan_value, normalize_train_val_test
+from data.dataloader import UCRDataset, UEADataset
+from data.preprocessing import normalize_per_series, fill_nan_value, normalize_train_val_test, load_UEA, normalize_uea_set
 from tsm_utils import build_model, set_seed, build_dataset, build_loss, evaluate, get_all_datasets, save_cls_result
 
 if __name__ == '__main__':
@@ -18,8 +18,9 @@ if __name__ == '__main__':
     parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
 
     # Dataset setup
-    parser.add_argument('--dataset', type=str, default=None, help='dataset(in ucr)')
-    parser.add_argument('--dataroot', type=str, default=None, help='path of UCR folder')
+    parser.add_argument('--dataset', type=str, default=None, help='dataset (in ucr or uea)')
+    parser.add_argument('--is_uea', type=bool, default=False, help='True or False')
+    parser.add_argument('--dataroot', type=str, default=None, help='path of UCR/UEA folder')
     parser.add_argument('--num_classes', type=int, default=0, help='number of class')
     parser.add_argument('--normalize_way', type=str, default='single', help='single or train_set')
     parser.add_argument('--seq_len', type=int, default=46, help='seq_len')
@@ -42,7 +43,7 @@ if __name__ == '__main__':
     parser.add_argument('--epoch', type=int, default=1000, help='training epoch')
     parser.add_argument('--mode', type=str, default='pretrain', help='train mode, default pretrain')
     parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/result_tsm')
-    parser.add_argument('--save_csv_name', type=str, default='ex1_test_fcncls_0409_')
+    parser.add_argument('--save_csv_name', type=str, default='ex1_test_fcncls_0530_')
     parser.add_argument('--continue_training', type=int, default=0, help='continue training')
     parser.add_argument('--cuda', type=str, default='cuda:1')
 
@@ -64,8 +65,11 @@ if __name__ == '__main__':
 
     device = torch.device(args.cuda if torch.cuda.is_available() else "cpu")
     set_seed(args)
-
-    sum_dataset, sum_target, num_classes = build_dataset(args)
+    if args.is_uea:
+        sum_dataset, sum_target, num_classes = load_UEA(args.dataroot, args.dataset)
+        args.input_size = sum_dataset.shape[2]
+    else:
+        sum_dataset, sum_target, num_classes = build_dataset(args)
     args.num_classes = num_classes
     args.seq_len = sum_dataset.shape[1]
     # print("test: sum_dataset.shape = ", sum_dataset.shape)
@@ -423,21 +427,38 @@ if __name__ == '__main__':
 
             train_dataset, val_dataset, test_dataset = fill_nan_value(train_dataset, val_dataset, test_dataset)
 
+            if test_dataset.shape[0] < args.batch_size:
+                args.batch_size = args.batch_size // 2
+
             if args.normalize_way == 'single':
                 # TODO normalize per series
-                train_dataset = normalize_per_series(train_dataset)
-                val_dataset = normalize_per_series(val_dataset)
-                test_dataset = normalize_per_series(test_dataset)
+                if args.is_uea:
+                    train_dataset = normalize_uea_set(train_dataset)
+                    val_dataset = normalize_uea_set(val_dataset)
+                    test_dataset = normalize_uea_set(test_dataset)
+                else:
+                    train_dataset = normalize_per_series(train_dataset)
+                    val_dataset = normalize_per_series(val_dataset)
+                    test_dataset = normalize_per_series(test_dataset)
             else:
                 train_dataset, val_dataset, test_dataset = normalize_train_val_test(train_dataset, val_dataset,
                                                                                     test_dataset)
 
-            train_set = UCRDataset(torch.from_numpy(train_dataset).to(device),
-                                   torch.from_numpy(train_target).to(device).to(torch.int64))
-            val_set = UCRDataset(torch.from_numpy(val_dataset).to(device),
-                                 torch.from_numpy(val_target).to(device).to(torch.int64))
-            test_set = UCRDataset(torch.from_numpy(test_dataset).to(device),
-                                  torch.from_numpy(test_target).to(device).to(torch.int64))
+            if args.is_uea:
+                train_set = UEADataset(torch.from_numpy(train_dataset).type(torch.FloatTensor).to(device),
+                                       torch.from_numpy(train_target).type(torch.FloatTensor).to(device).to(
+                                           torch.int64))
+                val_set = UEADataset(torch.from_numpy(val_dataset).type(torch.FloatTensor).to(device),
+                                     torch.from_numpy(val_target).type(torch.FloatTensor).to(device).to(torch.int64))
+                test_set = UEADataset(torch.from_numpy(test_dataset).type(torch.FloatTensor).to(device),
+                                      torch.from_numpy(test_target).type(torch.FloatTensor).to(device).to(torch.int64))
+            else:
+                train_set = UCRDataset(torch.from_numpy(train_dataset).to(device),
+                                       torch.from_numpy(train_target).to(device).to(torch.int64))
+                val_set = UCRDataset(torch.from_numpy(val_dataset).to(device),
+                                     torch.from_numpy(val_target).to(device).to(torch.int64))
+                test_set = UCRDataset(torch.from_numpy(test_dataset).to(device),
+                                      torch.from_numpy(test_target).to(device).to(torch.int64))
 
             train_loader = DataLoader(train_set, batch_size=args.batch_size, num_workers=0, drop_last=True)
             val_loader = DataLoader(val_set, batch_size=args.batch_size, num_workers=0)

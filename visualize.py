@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from sklearn import manifold
 from sklearn.metrics import classification_report
-from model import FCN, NonLinearClassifier, DilatedConvolution, Classifier
-from tsm_utils import load_data, transfer_labels
+from model import FCN, NonLinearClassifier, DilatedConvolution, Classifier, NonLinearClassifierVis
+from tsm_utils import load_data, transfer_labels, set_seed
 from data import normalize_per_series
 import torch
 import tqdm
@@ -20,34 +20,52 @@ DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else "cpu")
 
 
 
+def t_sne(xs, ys, datasetname='Wine', tsne=False, seed=42):
+    if tsne:
+        tsne = TSNE(n_components=2, random_state=seed)
+    else:
+        tsne = MDS(n_components=2, random_state=seed)
 
-def t_sne(xs, ys, seed=42):
-    model = FCN(2).to(DEVICE)
-    classifier = Classifier(128, 2).to(DEVICE)
-
-    tsne = MDS(n_components=2, random_state=seed)
     xs_out = tsne.fit_transform(xs, ys)
-    plt.subplot(2, 1, 1)
-    plt.title('timeseries (seed '+ str(seed)+')')
+    plt.subplot(3, 1, 1)
+    plt.title('Raw time-series')
     plt.scatter(xs_out[:,0], xs_out[:,1], c=ys)
 
     xs = torch.from_numpy(xs).to(DEVICE)
     xs = torch.unsqueeze(xs, 1)
-    model.load_state_dict(torch.load('./visuals/Wine/direct_fcn_encoder.pt',map_location='cuda:0'))
-    classifier.load_state_dict(torch.load('./visuals/Wine/direct_fcn_classifier.pt',map_location='cuda:0'))#,map_location=torch.device('cpu')))
 
+    model = FCN(2).to(DEVICE)
+    classifier = Classifier(128, 2).to(DEVICE)
+    model.load_state_dict(torch.load('./visuals/'+datasetname+'/direct_fcn_linear_encoder_weights.pt', map_location='cuda:0'))
+    classifier.load_state_dict(torch.load('./visuals/'+datasetname+'/direct_fcn_linear_classifier_weights.pt', map_location='cuda:0'))#,map_location=torch.device('cpu')))
+    model.eval()
+    classifier.eval()
     features, _ = model(xs, vis=True)
     feature_map = tsne.fit_transform(features.cpu().detach().numpy())
-    plt.subplot(2, 1, 2)
-    plt.title('feature map (seed '+ str(seed)+')')
+    plt.subplot(3, 1, 2)
+    plt.title('Embedding map (linear classifier)')
     plt.scatter(feature_map[:,0], feature_map[:,1], c=ys)
 
+    model = FCN(2).to(DEVICE)
+    classifier = NonLinearClassifierVis(128, 128, 2).to(DEVICE)
+    model.load_state_dict(
+        torch.load('./visuals/' + datasetname + '/direct_fcn_nonlinear_encoder_weights.pt', map_location='cuda:0'))
+    classifier.load_state_dict(torch.load('./visuals/' + datasetname + '/direct_fcn_nonlinear_classifier_weights.pt',
+                                          map_location='cuda:0'))  # ,map_location=torch.device('cpu')))
+    model.eval()
+    classifier.eval()
+    features, _ = model(xs, vis=True)
+    val_pred, non_features = classifier(features, vis=True)
+    feature_map = tsne.fit_transform(non_features.cpu().detach().numpy())
+    plt.subplot(3, 1, 3)
+    plt.title('Embedding map (nonlinear classifier)')
+    plt.scatter(feature_map[:, 0], feature_map[:, 1], c=ys)
+
     plt.tight_layout()
-    plt.savefig('./visuals/tsne_seed_'+str(seed)+'.png')
-    plt.savefig('./visuals/tsne_seed_'+str(seed)+'.pdf')
+    plt.savefig('./visuals/tsne_seed_'+str(seed)+"_"+datasetname+'.png')
+    plt.savefig('./visuals/tsne_seed_'+str(seed)+"_"+datasetname+'.pdf')
 
     plt.clf()
-
 
 
 def heatmap(xs):
@@ -189,12 +207,14 @@ def multi_cam(xs, ys):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataroot', type=str, default='/dev_data/zzj/hzy/datasets/UCR', help='data root')
-    parser.add_argument('--dataset', type=str, default='GunPoint', help='dataset name')
+    parser.add_argument('--dataroot', type=str, default='/SSD/lz/UCRArchive_2018', help='data root') ## /dev_data/zzj/hzy/datasets/UCR
+    parser.add_argument('--dataset', type=str, default='FreezerSmallTrain', help='dataset name')  ## Wine GunPoint FreezerSmallTrain
     parser.add_argument('--backbone', type=str, choices=['dilated', 'fcn'], default='fcn', help='encoder backbone')
-    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='cam')
+    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='tsne')
+    parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
 
     args = parser.parse_args()
+    set_seed(args)
     
     xs, ys, num_classes = load_data(args.dataroot, args.dataset)
     xs = normalize_per_series(xs)
@@ -205,7 +225,5 @@ if __name__ == '__main__':
     elif args.graph == 'heatmap':
         heatmap(xs)
     elif args.graph == 'tsne':
-        t_sne(xs, ys)
-
-    
-   
+        # t_sne(xs, ys)
+        t_sne(xs, ys, datasetname=args.dataset, tsne=True)
