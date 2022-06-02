@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from sklearn import manifold
 from sklearn.metrics import classification_report
-from model import FCN, NonLinearClassifier, DilatedConvolution, Classifier, NonLinearClassifierVis
+from model import FCN, DilatedConvolutionVis, Classifier, NonLinearClassifierVis
 from tsm_utils import load_data, transfer_labels, set_seed
 from data import normalize_per_series
 import torch
@@ -17,7 +17,6 @@ from sklearn.cluster import KMeans
 
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else "cpu")
-
 
 
 def t_sne(xs, ys, datasetname='Wine', tsne=False, seed=42):
@@ -137,11 +136,8 @@ def multi_cam(xs, ys):
     class1= np.expand_dims(class1, 0)
     print(class1.shape)
 
-    print(class0.mean())
-    print(class1.mean())
-    model = FCN(2).to(DEVICE)
-    classifier = Classifier(128, 2).to(DEVICE)
-
+    # print(class0.mean())
+    # print(class1.mean())
     def cam(x, label):
         x = torch.from_numpy(x).to(DEVICE)
         #x = torch.unsqueeze(x, 0)
@@ -155,7 +151,7 @@ def multi_cam(xs, ys):
             cas += (w * vis_out[0, k, :]).cpu().numpy()
         
         minimum = np.min(cas)
-        print(cas)
+        # print(cas)
         cas = cas - minimum
         cas = cas / max(cas)
         cas = cas * 100
@@ -169,48 +165,103 @@ def multi_cam(xs, ys):
         f = interp1d(range(x.shape[2]), cas)
         cas = f(plt_x).astype(int)
         
-        plt.scatter(x=plt_x, y=y, c=cas, cmap='jet', marker='.',s=2, vmin=0, vmax=100, linewidths=1.0)
+        plt.scatter(x=plt_x, y=y, c=cas, cmap='jet', marker='.', s=2, vmin=0, vmax=100, linewidths=1.0)
         
         plt.yticks([-1.0, 0.0, 1.0])
 
     plt.figure()
-    
+    model = FCN(2).to(DEVICE)
+    classifier = Classifier(128, 2).to(DEVICE)
     model.load_state_dict(torch.load('./visuals/GunPoint/direct_fcn_encoder.pt',map_location='cuda:0'))
     classifier.load_state_dict(torch.load('./visuals/GunPoint/direct_fcn_classifier.pt',map_location='cuda:0'))
-    plt.subplot(3, 1, 1)
-    plt.title('Direct Classification')
+    model.eval()
+    classifier.eval()
+    x1 = torch.from_numpy(xs).to(DEVICE)
+    x1 = torch.unsqueeze(x1, 1)
+    features, _ = model(x1, vis=True)
+    val_pred = features
+    val_pred = classifier(val_pred)
+    ys1 = torch.from_numpy(ys).to(DEVICE)
+    val_accu = torch.sum(torch.argmax(val_pred.data, axis=1) == ys1)
+    val_accu = val_accu / len(ys)
+    print("val accuracy direct = ", val_accu)
+
+    ax1 = plt.subplot(4, 1, 1)
+    plt.title('Direct classification via FCN (100%)')
     cam(class0, 0)
     cam(class1, 1)
 
-   
+    model = DilatedConvolutionVis(in_channels=1, embedding_channels=40, out_channels=320, depth=3,
+                                  reduced_size=320, kernel_size=3, num_classes=2).to(DEVICE)
+    classifier = Classifier(320, 2).to(DEVICE)
+    model.load_state_dict(
+        torch.load('./visuals/GunPoint/direct_dilated_encoder.pt', map_location='cuda:0'))
+    classifier.load_state_dict(
+        torch.load('./visuals/GunPoint/direct_dilated_classifier.pt', map_location='cuda:0'))
+    model.eval()
+    classifier.eval()
+    features, _ = model(x1, vis=True)
+    val_pred = features
+    val_pred = classifier(val_pred)
+    ys1 = torch.from_numpy(ys).to(DEVICE)
+    val_accu = torch.sum(torch.argmax(val_pred.data, axis=1) == ys1)
+    val_accu = val_accu / len(ys)
+    print("val accuracy dilated = ", val_accu)
+
+    ax2 = plt.subplot(4, 1, 2)
+    plt.title('Direct classification via Dilated CNN (50%)')
+    cam(class0, 0)
+    cam(class1, 1)
+
+    model = FCN(2).to(DEVICE)
+    classifier = Classifier(128, 2).to(DEVICE)
     model.load_state_dict(torch.load('./visuals/GunPoint/supervised_encoder_UWaveGestureLibraryX_linear.pt',map_location='cuda:0'))
     classifier.load_state_dict(torch.load('./visuals/GunPoint/supervised_classifier_UWaveGestureLibraryX_linear.pt',map_location='cuda:0'))
-    plt.subplot(3, 1, 2)
-    plt.title('Supervised Transfer')
+    model.eval()
+    classifier.eval()
+    features, _ = model(x1, vis=True)
+    val_pred = features
+    val_pred = classifier(val_pred)
+    ys1 = torch.from_numpy(ys).to(DEVICE)
+    val_accu = torch.sum(torch.argmax(val_pred.data, axis=1) == ys1)
+    val_accu = val_accu / len(ys)
+    print("val accuracy supervised = ", val_accu)
+
+    ax3 = plt.subplot(4, 1, 3)
+    plt.title('Supervised transfer (100%)')
     cam(class0, 0)
     cam(class1, 1)
 
-    
     model.load_state_dict(torch.load('./visuals/GunPoint/unsupervised_encoder_UWaveGestureLibraryX_linear.pt',map_location='cuda:0'))
     classifier.load_state_dict(torch.load('./visuals/GunPoint/unsupervised_classifier_UWaveGestureLibraryX_linear.pt',map_location='cuda:0'))
-    plt.subplot(3, 1, 3)
-    plt.title('Unsupervised Transfer')
+    model.eval()
+    classifier.eval()
+    features, _ = model(x1, vis=True)
+    val_pred = features
+    val_pred = classifier(val_pred)
+    ys1 = torch.from_numpy(ys).to(DEVICE)
+    val_accu = torch.sum(torch.argmax(val_pred.data, axis=1) == ys1)
+    val_accu = val_accu / len(ys)
+    print("val accuracy unsupervised = ", val_accu)
+
+    ax4 = plt.subplot(4, 1, 4)
+    plt.title('Unsupervised transfer via FCN (98.5%)')
     cam(class0, 0)
     cam(class1, 1)
-    
-    #plt.subplots_adjust(left=None,bottom=None,right=None,top=None,wspace=0.30,hspace=1.0)
-    plt.tight_layout()
-    plt.savefig('./visuals/fcn-supervised-unsupervised.png')
-    plt.savefig('./visuals/fcn-supervised-unsupervised.pdf')
 
+    plt.colorbar(ax=[ax1, ax2, ax3, ax4])  # Add a color scale bar on the right side
+    plt.subplots_adjust(left=None, bottom=None, right=0.75, top=None, wspace=0.00, hspace=0.9)
+    # plt.tight_layout()
+    plt.savefig('./visuals/fcn_dilated_supervised_unsupervised_transfer.png', bbox_inches='tight')
+    plt.savefig('./visuals/fcn_dilated_supervised_unsupervised_transfer.pdf', bbox_inches='tight')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataroot', type=str, default='/SSD/lz/UCRArchive_2018', help='data root') ## /dev_data/zzj/hzy/datasets/UCR
-    parser.add_argument('--dataset', type=str, default='FreezerSmallTrain', help='dataset name')  ## Wine GunPoint FreezerSmallTrain
+    parser.add_argument('--dataset', type=str, default='GunPoint', help='dataset name')  ## Wine GunPoint FreezerSmallTrain
     parser.add_argument('--backbone', type=str, choices=['dilated', 'fcn'], default='fcn', help='encoder backbone')
-    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='tsne')
+    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='cam')
     parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
 
     args = parser.parse_args()

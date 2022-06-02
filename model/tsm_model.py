@@ -140,6 +140,40 @@ class DilatedConvolution(nn.Module):
         return self.network(x)
 
 
+class DilatedConvolutionVis(nn.Module):
+    def __init__(self, in_channels, embedding_channels, out_channels, depth, reduced_size, kernel_size,
+                 num_classes) -> None:
+        super(DilatedConvolutionVis, self).__init__()
+
+        self.layers = []
+        # dilation size will be doubled at each step according to TLoss
+        dilation_size = 1
+
+        for i in range(depth):
+            block_in_channels = in_channels if i == 0 else embedding_channels
+            self.layers += [DilatedBlock(block_in_channels,
+                                         embedding_channels, kernel_size, dilation_size)]
+            dilation_size *= 2
+
+        self.layers += [DilatedBlock(embedding_channels, reduced_size,
+                                     kernel_size, dilation_size, final=True)]
+
+        self.global_average_pool = nn.AdaptiveAvgPool1d(1)
+
+        # 注意， dilated中用的是global max pool
+        self.network = nn.Sequential(*self.layers,
+                                     nn.AdaptiveMaxPool1d(1),
+                                     SqueezeChannels(),
+                                     # nn.Linear(reduced_size, out_channels),
+                                     )
+
+    def forward(self, x, vis=False):
+        if vis:
+            with torch.no_grad():
+                return self.network(x), nn.Sequential(*self.layers)(x)
+        return self.network(x)
+
+
 class Classifier(nn.Module):
     def __init__(self, input_dims, output_dims) -> None:
         super(Classifier, self).__init__()
