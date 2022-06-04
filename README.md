@@ -12,8 +12,8 @@ The datasets used in this project are as follows:
 * [Yahoo dataset](https://webscope.sandbox.yahoo.com/catalog.php?datatype=s&did=70) 
 * [KPI dataset](http://test-10056879.file.myqcloud.com/10056879/test/20180524_78431960010324/KPI%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%86%B3%E8%B5%9B%E6%95%B0%E6%8D%AE%E9%9B%86.zip)
 
-
-## Usage (Transfer Learning)
+## Pre-Training Models on Time Series Classification
+### Usage (Transfer Learning)
 1. To pre-train a model on your own dataset, run
 
 ```bash
@@ -34,7 +34,7 @@ python train.py -h
 
 For detailed options and examples, please refer to ```scripts/transfer_pretrain_finetune.sh```
 
-## Usage (Transformer and Contrastive Learning)
+### Usage (Transformer and Contrastive Learning)
 |  ID   | Method  | Architecture | Year | Press. | Source Code |
 |  ----  | ----  | ----  | ----  | ----  | ---- | 
 | 1  | [TS2Vec](https://www.aaai.org/AAAI22Papers/AAAI-8809.YueZ.pdf) | Contrastive Learning |2022 | AAAI | [github-link](https://github.com/yuezhihan/ts2vec) |
@@ -95,9 +95,15 @@ python -u train_ssl.py --dataset_name [dataset name] --model_name SelfTime --ucr
 
 For detailed options and examples, please refer to ```selftime_cls/scripts/ucr.sh```
 
-## Usage (Visualization)
+### Usage (Visualization)
 * To get the visualization of model's feature map, run
 ```bash
 python visualize.py --dataroot [your dataset root] --dataset [dataset name] --backbone [encoder backbone] --graph [cam, heatmap or tsne] 
 ```
 * We provide weights of Wine and GunPoint dataset for quick start. 
+
+## Pre-Training Models on Time Series Forecasting
+For details, please refer to [ts_forecating_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_forecasting_methods/README.md).
+
+## Pre-Training Models on Time Series Anomaly Detection
+For details, please refer to [ts_anomaly_detection_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_anomaly_detection_methods/README.md).
