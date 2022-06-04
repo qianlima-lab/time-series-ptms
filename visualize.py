@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from sklearn import manifold
 from sklearn.metrics import classification_report
-from model import FCN, DilatedConvolutionVis, Classifier, NonLinearClassifierVis
+from model import FCN, DilatedConvolutionVis, Classifier, NonLinearClassifierVis, NonLinearClassifier
 from tsm_utils import load_data, transfer_labels, set_seed
 from data import normalize_per_series
 import torch
@@ -67,9 +67,8 @@ def t_sne(xs, ys, datasetname='Wine', tsne=False, seed=42):
     plt.clf()
 
 
-def heatmap(xs):
-    model = FCN(2)
-    model.eval()
+def heatmap(xs, ys):
+    model = FCN(5)
     model.to(DEVICE)
 
     ts1 = plt.subplot2grid((2, 15), loc=(0, 0), colspan=4, rowspan=1)
@@ -79,11 +78,16 @@ def heatmap(xs):
     ts3 = plt.subplot2grid((2, 15), loc=(0, 10), colspan=4, rowspan=1)
     hm3 = plt.subplot2grid((2, 15), loc=(1, 10), colspan=4)
 
-    x1 = xs[np.random.randint(0, xs.shape[0])]
+    x0s = xs[np.where(ys == 4)]
+    x0_mean = np.mean(x0s, axis=1)
+    x0_mean_mean = np.mean(x0_mean, axis=0)
+    class0 = x0s[np.where(np.abs(x0_mean - x0_mean_mean) == min(np.abs(x0_mean - x0_mean_mean)))[0][0]]
+    x1 = class0
     x_copy = x1
     # direct cls
-    model.load_state_dict(torch.load('./visuals/Wine/direct_fcn_encoder.pt',map_location='cuda:0'))
-    ts1.set_title('direct cls')
+    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/direct_fcn_nonlinear_encoder_weights.pt', map_location='cuda:0'))
+    model.eval()
+    ts1.set_title('Direct classification')
     ts1.plot(range(x_copy.shape[0]), x_copy)
     x1 = torch.from_numpy(x1).to(DEVICE)
     x1 = torch.unsqueeze(x1, 0)
@@ -95,8 +99,9 @@ def heatmap(xs):
     hm1.pcolormesh(feature[0:16],shading='nearest')
 
     # supervised transfer
-    model.load_state_dict(torch.load('./visuals/Wine/encoder_NonInvasiveFetalECGThorax1_linear.pt',map_location='cuda:0'))
-    ts2.set_title('positive transfer')
+    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/fcn_nonlinear_encoder_finetune_weights_UWaveGestureLibraryZ.pt',map_location='cuda:0'))
+    model.eval()
+    ts2.set_title('Positive transfer')
     ts2.plot(range(x_copy.shape[0]), x_copy)
     gaps, feature = model(x1, vis=True)
     gaps = torch.squeeze(gaps)
@@ -104,20 +109,21 @@ def heatmap(xs):
     feature = feature[torch.topk((gaps-gaps.mean())**2, k=16).indices,:].cpu()
     hm2.pcolormesh(feature[0:16],shading='nearest')
 
-    model.load_state_dict(torch.load('./visuals/Wine/encoder_Crop_linear.pt',map_location='cuda:0'))
-    ts3.set_title('negative transfer')
+    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/fcn_nonlinear_encoder_finetune_weights_ElectricDevices.pt',map_location='cuda:0'))
+    model.eval()
+    ts3.set_title('Negative transfer')
     ts3.plot(range(x_copy.shape[0]), x_copy)
     gaps, feature = model(x1, vis=True)
     gaps = torch.squeeze(gaps)
     feature = torch.squeeze(feature)
     feature = feature[torch.topk((gaps-gaps.mean())**2, k=16).indices,:].cpu()
-    hm3.pcolormesh(feature[0:16],shading='nearest')
-    
+    hm3.pcolormesh(feature[0:16], shading='nearest')
 
-    plt.subplots_adjust(left=None,bottom=None,right=None,top=None,wspace=0.15,hspace=0.30)
-    #plt.tight_layout()
-    plt.savefig('./visuals/Wine_postive_negative.png')
-    plt.savefig('./visuals/Wine_postive_negative.pdf')
+    plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.15, hspace=0.30)
+    plt.tight_layout()
+    plt.savefig('./visuals/MixedShapesSmallTrain_postive_negative.png')
+    plt.savefig('./visuals/MixedShapesSmallTrain_postive_negative.pdf')
+
 
 def multi_cam(xs, ys):
     # sampling
@@ -133,7 +139,7 @@ def multi_cam(xs, ys):
     x1_mean = np.mean(x1s, axis=1)
     x1_mean_mean = np.mean(x1_mean, axis=0)
     class1 = x1s[np.where(np.abs(x1_mean-x1_mean_mean) == min(np.abs(x1_mean-x1_mean_mean)))][0]
-    class1= np.expand_dims(class1, 0)
+    class1 = np.expand_dims(class1, 0)
     print(class1.shape)
 
     # print(class0.mean())
@@ -228,7 +234,7 @@ def multi_cam(xs, ys):
     print("val accuracy supervised = ", val_accu)
 
     ax3 = plt.subplot(4, 1, 3)
-    plt.title('Supervised transfer (100%)')
+    plt.title('Supervised transfer via FCN (100%)')
     cam(class0, 0)
     cam(class1, 1)
 
@@ -259,9 +265,9 @@ def multi_cam(xs, ys):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataroot', type=str, default='/SSD/lz/UCRArchive_2018', help='data root') ## /dev_data/zzj/hzy/datasets/UCR
-    parser.add_argument('--dataset', type=str, default='GunPoint', help='dataset name')  ## Wine GunPoint FreezerSmallTrain
+    parser.add_argument('--dataset', type=str, default='MixedShapesSmallTrain', help='dataset name')  ## Wine GunPoint FreezerSmallTrain MixedShapesSmallTrain
     parser.add_argument('--backbone', type=str, choices=['dilated', 'fcn'], default='fcn', help='encoder backbone')
-    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='cam')
+    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='heatmap')
     parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
 
     args = parser.parse_args()
@@ -274,7 +280,7 @@ if __name__ == '__main__':
     if args.graph == 'cam':
         multi_cam(xs, ys)
     elif args.graph == 'heatmap':
-        heatmap(xs)
+        heatmap(xs, ys)
     elif args.graph == 'tsne':
         # t_sne(xs, ys)
         t_sne(xs, ys, datasetname=args.dataset, tsne=True)

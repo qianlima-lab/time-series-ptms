@@ -28,3 +28,4 @@ cache
 /test/Wine/
 /test/Wine/test_dir
 /scripts/ex1_trasfer_finetune.sh
+/test/train_test2.py
