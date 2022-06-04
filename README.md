@@ -101,13 +101,3 @@ For detailed options and examples, please refer to ```selftime_cls/scripts/ucr.s
 python visualize.py --dataroot [your dataset root] --dataset [dataset name] --backbone [encoder backbone] --graph [cam, heatmap or tsne] 
 ```
 * We provide weights of Wine and GunPoint dataset for quick start. 
-
-## Results
-### Transfer learning in UCR datasets
-![Encoder_cls](png/encoder_cls_results.png "Classification test accuracy using FCN and Dilated CNN on 128 UCR datasets")
-
-![Transfer](png/transfer_learning_cls.png "Classification Comparison Results based on Supervised Classification for Transfer Learning")
-
-![Transfer](png/transfer_learning_rec_fcn.png "Classification Comparison Results based on FCN Decoder Reconstruction for Transfer Learning")
-
-![Transfer](png/transfer_learning_rec_rnn.png "Classification Comparison Results based on RNN Decoder Reconstruction for Transfer Learning")
