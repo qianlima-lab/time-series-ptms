@@ -68,6 +68,7 @@ if __name__ == '__main__':
     if args.is_uea:
         sum_dataset, sum_target, num_classes = load_UEA(args.dataroot, args.dataset)
         args.input_size = sum_dataset.shape[2]
+        args.in_channels = sum_dataset.shape[2]
     else:
         sum_dataset, sum_target, num_classes = build_dataset(args)
     args.num_classes = num_classes
