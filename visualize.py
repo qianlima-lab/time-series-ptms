@@ -67,8 +67,8 @@ def t_sne(xs, ys, datasetname='Wine', tsne=False, seed=42):
     plt.clf()
 
 
-def heatmap(xs, ys):
-    model = FCN(5)
+def heatmap(xs, ys, dataset_name='MixedShapesSmallTrain', num_class=5, cls=4):
+    model = FCN(num_class)
     model.to(DEVICE)
 
     ts1 = plt.subplot2grid((2, 15), loc=(0, 0), colspan=4, rowspan=1)
@@ -78,14 +78,14 @@ def heatmap(xs, ys):
     ts3 = plt.subplot2grid((2, 15), loc=(0, 10), colspan=4, rowspan=1)
     hm3 = plt.subplot2grid((2, 15), loc=(1, 10), colspan=4)
 
-    x0s = xs[np.where(ys == 4)]
+    x0s = xs[np.where(ys == cls)]
     x0_mean = np.mean(x0s, axis=1)
     x0_mean_mean = np.mean(x0_mean, axis=0)
     class0 = x0s[np.where(np.abs(x0_mean - x0_mean_mean) == min(np.abs(x0_mean - x0_mean_mean)))[0][0]]
     x1 = class0
     x_copy = x1
     # direct cls
-    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/direct_fcn_nonlinear_encoder_weights.pt', map_location='cuda:0'))
+    model.load_state_dict(torch.load('./visuals/' + dataset_name +'/direct_fcn_nonlinear_encoder_weights.pt', map_location='cuda:0'))
     model.eval()
     ts1.set_title('Direct classification')
     ts1.plot(range(x_copy.shape[0]), x_copy)
@@ -99,7 +99,10 @@ def heatmap(xs, ys):
     hm1.pcolormesh(feature[0:16],shading='nearest')
 
     # supervised transfer
-    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/fcn_nonlinear_encoder_finetune_weights_UWaveGestureLibraryZ.pt',map_location='cuda:0'))
+    # model.load_state_dict(torch.load('./visuals/' + dataset_name + '/fcn_nonlinear_encoder_finetune_weights_UWaveGestureLibraryZ.pt',map_location='cuda:0'))
+    model.load_state_dict(
+        torch.load('./visuals/' + dataset_name + '/fcn_nonlinear_encoder_finetune_weights_UWaveGestureLibraryZ.pt',
+                   map_location='cuda:0'))
     model.eval()
     ts2.set_title('Positive transfer')
     ts2.plot(range(x_copy.shape[0]), x_copy)
@@ -109,7 +112,10 @@ def heatmap(xs, ys):
     feature = feature[torch.topk((gaps-gaps.mean())**2, k=16).indices,:].cpu()
     hm2.pcolormesh(feature[0:16],shading='nearest')
 
-    model.load_state_dict(torch.load('./visuals/MixedShapesSmallTrain/fcn_nonlinear_encoder_finetune_weights_ElectricDevices.pt',map_location='cuda:0'))
+    # model.load_state_dict(torch.load('./visuals/' + dataset_name + '/fcn_nonlinear_encoder_finetune_weights_ElectricDevices.pt',map_location='cuda:0'))
+    model.load_state_dict(
+        torch.load('./visuals/' + dataset_name + '/fcn_nonlinear_encoder_finetune_weights_Crop.pt',
+                   map_location='cuda:0'))
     model.eval()
     ts3.set_title('Negative transfer')
     ts3.plot(range(x_copy.shape[0]), x_copy)
@@ -121,8 +127,8 @@ def heatmap(xs, ys):
 
     plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.15, hspace=0.30)
     plt.tight_layout()
-    plt.savefig('./visuals/MixedShapesSmallTrain_postive_negative.png')
-    plt.savefig('./visuals/MixedShapesSmallTrain_postive_negative.pdf')
+    plt.savefig('./visuals/' + dataset_name +'_postive_negative.png')
+    plt.savefig('./visuals/' + dataset_name +'_postive_negative.pdf')
 
 
 def multi_cam(xs, ys):
@@ -265,7 +271,7 @@ def multi_cam(xs, ys):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataroot', type=str, default='/SSD/lz/UCRArchive_2018', help='data root') ## /dev_data/zzj/hzy/datasets/UCR
-    parser.add_argument('--dataset', type=str, default='MixedShapesSmallTrain', help='dataset name')  ## Wine GunPoint FreezerSmallTrain MixedShapesSmallTrain
+    parser.add_argument('--dataset', type=str, default='Wine', help='dataset name')  ## Wine GunPoint FreezerSmallTrain MixedShapesSmallTrain
     parser.add_argument('--backbone', type=str, choices=['dilated', 'fcn'], default='fcn', help='encoder backbone')
     parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='heatmap')
     parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
@@ -280,7 +286,7 @@ if __name__ == '__main__':
     if args.graph == 'cam':
         multi_cam(xs, ys)
     elif args.graph == 'heatmap':
-        heatmap(xs, ys)
+        heatmap(xs, ys, dataset_name='Wine', num_class=2,  cls=0)
     elif args.graph == 'tsne':
         # t_sne(xs, ys)
         t_sne(xs, ys, datasetname=args.dataset, tsne=True)
