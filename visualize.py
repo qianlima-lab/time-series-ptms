@@ -221,7 +221,7 @@ def multi_cam(xs, ys):
     print("val accuracy dilated = ", val_accu)
 
     ax2 = plt.subplot(4, 1, 2)
-    plt.title('Direct classification via Dilated CNN (50%)')
+    plt.title('Direct classification via TCN (50%)')
     cam(class0, 0)
     cam(class1, 1)
 
@@ -257,7 +257,7 @@ def multi_cam(xs, ys):
     print("val accuracy unsupervised = ", val_accu)
 
     ax4 = plt.subplot(4, 1, 4)
-    plt.title('Unsupervised transfer via FCN (98.5%)')
+    plt.title('Unsupervised transfer via FCN decoder (98.5%)')
     cam(class0, 0)
     cam(class1, 1)
 
@@ -271,9 +271,9 @@ def multi_cam(xs, ys):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataroot', type=str, default='/SSD/lz/UCRArchive_2018', help='data root') ## /dev_data/zzj/hzy/datasets/UCR
-    parser.add_argument('--dataset', type=str, default='Wine', help='dataset name')  ## Wine GunPoint FreezerSmallTrain MixedShapesSmallTrain
+    parser.add_argument('--dataset', type=str, default='GunPoint', help='dataset name')  ## Wine GunPoint FreezerSmallTrain MixedShapesSmallTrain
     parser.add_argument('--backbone', type=str, choices=['dilated', 'fcn'], default='fcn', help='encoder backbone')
-    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='heatmap')
+    parser.add_argument('--graph', type=str, choices=['cam', 'heatmap', 'tsne'], default='cam')
     parser.add_argument('--random_seed', type=int, default=42, help='shuffle seed')
 
     args = parser.parse_args()
