@@ -31,3 +31,4 @@ cache
 /test/train_test2.py
 /ts2vec_cls/train_tsm_test.py
 /test/train_test3.py
+/tstcc_cls/semi_main_ucr.py
