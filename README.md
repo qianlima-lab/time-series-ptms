@@ -1,6 +1,6 @@
-# From Transfer to Transformer
+# A Survey on Time-Series Pre-Trained Models
 
-This is the training code for our paper *"A Survey on Time-Series Pre-Training Models"*
+This is the training code for our paper *"A Survey on Time-Series Pre-Trained Models"*
 
 ## Data
 The datasets used in this project are as follows:
@@ -18,7 +18,7 @@ The datasets used in this project are as follows:
 * [ECG dataset](https://physionet.org/content/challenge-2017/1.0.0/) 
 * [EMG dataset](https://physionet.org/content/emgdb/1.0.0/) 
 
-## Pre-Training Models on Time Series Classification
+## Pre-Trained Models on Time Series Classification
 ### Usage (Transfer Learning)
 1. To pre-train a model on your own dataset, run
 
