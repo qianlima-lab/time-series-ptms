@@ -42,7 +42,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, default=128, help='(16, 128) larger batch size on the big dataset, ')
     parser.add_argument('--epoch', type=int, default=1000, help='training epoch')
     parser.add_argument('--mode', type=str, default='pretrain', help='train mode, default pretrain')
-    parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/result_tsm')
+    parser.add_argument('--save_dir', type=str, default='/SSD/lz/time_tsm/result_tsm_lin')
     parser.add_argument('--save_csv_name', type=str, default='ex1_test_fcncls_0530_')
     parser.add_argument('--continue_training', type=int, default=0, help='continue training')
     parser.add_argument('--cuda', type=str, default='cuda:1')
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     parser.add_argument('--decoder_backbone', type=str, default='rnn', help='backbone of the decoder (rnn or fcn)')
 
     # classifier setup
-    parser.add_argument('--classifier', type=str, default='nonlinear', help='type of classifier(linear or nonlinear)')
+    parser.add_argument('--classifier', type=str, default='linear', help='type of classifier')
     parser.add_argument('--classifier_input', type=int, default=128, help='input dim of the classifiers')
     parser.add_argument('--classifier_embedding', type=int, default=128,
                         help='embedding dim of the non linear classifier')

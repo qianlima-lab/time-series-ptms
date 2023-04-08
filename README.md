@@ -1,7 +1,6 @@
 # From Transfer to Transformer
 
-This is the training code for our paper *"From Transfer to Transformer: A Survey on
-Time-series Pre-Training Models"*
+This is the training code for our paper *"A Survey on Time-Series Pre-Training Models"*
 
 ## Data
 The datasets used in this project are as follows:
@@ -11,6 +10,13 @@ The datasets used in this project are as follows:
 * [Electricity](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014)
 * [Yahoo dataset](https://webscope.sandbox.yahoo.com/catalog.php?datatype=s&did=70) 
 * [KPI dataset](http://test-10056879.file.myqcloud.com/10056879/test/20180524_78431960010324/KPI%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%86%B3%E8%B5%9B%E6%95%B0%E6%8D%AE%E9%9B%86.zip)
+* [SleepEEG dataset](https://www.physionet.org/content/sleep-edfx/1.0.0/) 
+* [Epilepsy dataset](https://repositori.upf.edu/handle/10230/42894) 
+* [FD-A and FD-B dataset](https://mb.uni-paderborn.de/en/kat/main-research/datacenter/bearing-datacenter/data-sets-and-download) 
+* [HAR dataset](https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) 
+* [Gesture dataset](http://www.timeseriesclassification.com/description.php?Dataset=UWaveGestureLibrary) 
+* [ECG dataset](https://physionet.org/content/challenge-2017/1.0.0/) 
+* [EMG dataset](https://physionet.org/content/emgdb/1.0.0/) 
 
 ## Pre-Training Models on Time Series Classification
 ### Usage (Transfer Learning)

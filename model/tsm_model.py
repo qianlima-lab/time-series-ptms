@@ -243,7 +243,7 @@ class RNNDecoder(nn.Module):
         self.grucell3 = nn.GRUCell(
             input_size=embedding_dim, hidden_size=embedding_dim)
 
-        self.linear = nn.Linear(in_features=embedding_dim, out_features=1)
+        self.linear = nn.Linear(in_features=embedding_dim, out_features=input_dim)
 
     # x : single time step (batch_size, 1)
     # TODO 是否将训练循环改到train.py中

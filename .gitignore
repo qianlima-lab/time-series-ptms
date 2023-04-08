@@ -32,3 +32,9 @@ cache
 /ts2vec_cls/train_tsm_test.py
 /test/train_test3.py
 /tstcc_cls/semi_main_ucr.py
+/tfc_cls/new_dataset_test.py
+/tfc_cls/result_transfer/readme
+/result_tsm_lin/test_readme
+/result_tsm_lin/test_readme
+/result_tsm_lin/
+/tfc_cls/

@@ -59,12 +59,12 @@ for dataset in ucr_dataset:
     '''
         python train.py --backbone fcn --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way train_set --dataset ACSF1 --mode directly_cls --epoch 1000  --loss cross_entropy --save_csv_name fcn_nonlin_set_norm_0404_ --cuda cuda:1
         '''
-    with open('/SSD/lz/time_tsm/scripts/fcn_lin_set_norm.sh', 'a') as f:
-        f.write('python train.py --backbone fcn --classifier linear --classifier_input 128 '
-                '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way train_set '
-                '--dataset ' + dataset
-                + ' --mode directly_cls --epoch 1000 ' +
-                ' --loss cross_entropy --save_csv_name fcn_lin_set_norm_0407_ --cuda cuda:1' + ';\n')
+    # with open('/SSD/lz/time_tsm/scripts/fcn_lin_set_norm.sh', 'a') as f:
+    #     f.write('python train.py --backbone fcn --classifier linear --classifier_input 128 '
+    #             '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way train_set '
+    #             '--dataset ' + dataset
+    #             + ' --mode directly_cls --epoch 1000 ' +
+    #             ' --loss cross_entropy --save_csv_name fcn_lin_set_norm_0407_ --cuda cuda:1' + ';\n')
 
     '''
     python train.py --backbone fcn --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode directly_cls --epoch 1000  --loss cross_entropy --save_csv_name fcn_nonlin_single_norm_0404_ --cuda cuda:1;
@@ -74,11 +74,9 @@ for dataset in ucr_dataset:
                 '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataset ' + dataset
                 + ' --mode directly_cls --epoch 1000 ' +
-                ' --loss cross_entropy --save_csv_name fcn_lin_single_norm_0407_ --cuda cuda:1' + ';\n')
+                ' --loss cross_entropy --save_csv_name fcn_lin_single_norm_0311_ --cuda cuda:1' + ';\n')
 
 
-## nohup ./scripts/fcn_nonlin_set_norm.sh &
-## nohup ./scripts/fcn_nonlin_single_norm.sh &
 
 ## nohup ./scripts/fcn_lin_set_norm.sh &
 ## nohup ./scripts/fcn_lin_single_norm.sh &

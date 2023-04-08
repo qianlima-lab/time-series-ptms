@@ -34,7 +34,7 @@ def build_model(args):
 
     elif args.task == 'reconstruction':
         if args.decoder_backbone == 'rnn':
-            classifier = RNNDecoder()
+            classifier = RNNDecoder(input_dim=args.input_size)
         if args.decoder_backbone == 'fcn':
             classifier = FCNDecoder(num_classes=args.num_classes, seq_len=args.seq_len, input_size=args.input_size)
 

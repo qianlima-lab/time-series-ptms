@@ -46,19 +46,6 @@ for dataset in ucr_dataset:
                 + ' --mode directly_cls --epoch 1000 --depth 3 ' +
                 ' --loss cross_entropy --save_csv_name dilated3_lin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
-i = 0
-for dataset in ucr_dataset:
-    print("i = ", i, "dataset_name = ", dataset)
-    i = i + 1
-    '''
-    python train.py --backbone dilated --classifier nonlinear --classifier_input 320 --depth 3 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode directly_cls --epoch 10  --loss cross_entropy --save_csv_name test_nonlin_set_norm_0409_ --cuda cuda:1;
-    '''
-    with open('/SSD/lz/time_tsm/scripts/dilated_single_norm.sh', 'a') as f:
-        f.write('python train.py --backbone dilated --classifier nonlinear --classifier_input 320 '
-                '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
-                '--dataset ' + dataset
-                + ' --mode directly_cls --epoch 1000 --depth 3 ' +
-                ' --loss cross_entropy --save_csv_name dilated3_nonlin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 i = 0
 for dataset in ucr_dataset:
@@ -74,19 +61,6 @@ for dataset in ucr_dataset:
                 + ' --mode directly_cls --epoch 1000 --depth 10 ' +
                 ' --loss cross_entropy --save_csv_name dilated10_lin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
-i = 0
-for dataset in ucr_dataset:
-    print("i = ", i, "dataset_name = ", dataset)
-    i = i + 1
-    '''
-    python train.py --backbone dilated --classifier nonlinear --classifier_input 320 --depth 10 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode directly_cls --epoch 10  --loss cross_entropy --save_csv_name test_nonlin_set_norm_0409_ --cuda cuda:1;
-    '''
-    with open('/SSD/lz/time_tsm/scripts/dilated_single_norm.sh', 'a') as f:
-        f.write('python train.py --backbone dilated --classifier nonlinear --classifier_input 320 '
-                '--dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
-                '--dataset ' + dataset
-                + ' --mode directly_cls --epoch 1000 --depth 10 ' +
-                ' --loss cross_entropy --save_csv_name dilated10_nonlin_single_norm_0409_ --cuda cuda:0' + ';\n')
 
 
 ## nohup ./scripts/dilated_single_norm.sh &

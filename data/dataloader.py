@@ -7,7 +7,8 @@ class UCRDataset(data.Dataset):
     def __init__(self, dataset, target):
         self.dataset = dataset
         # self.dataset = np.expand_dims(self.dataset, 1)
-        self.dataset = torch.unsqueeze(self.dataset, 1)  # (num_size, 1, series_length)
+        if len(self.dataset.shape) == 2:
+            self.dataset = torch.unsqueeze(self.dataset, 1)  # (num_size, 1, series_length)
         self.target = target
 
     def __getitem__(self, index):

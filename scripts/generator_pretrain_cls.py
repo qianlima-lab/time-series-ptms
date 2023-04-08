@@ -1,38 +1,3 @@
-'''
-python train.py --backbone fcn --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode directly_cls --epoch 1000  --loss cross_entropy --save_csv_name fcn_nonlin_single_norm_0404_ --cuda cuda:1;
-'''
-
-### pretrain
-### cls
-'''
-python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss cross_entropy --cuda cuda:1;
-'''
-
-### fcn rec
-'''
-python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone fcn --cuda cuda:1;
-'''
-
-### rnn rec
-'''
-python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone rnn --cuda cuda:1;
-'''
-
-### finetune cls
-'''
-python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --source_dataset Coffee --transfer_strategy classification --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
-'''
-
-### finetune rec fcn
-'''
-python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone fcn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
-'''
-
-### finetune rec rnn
-'''
-python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone rnn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
-'''
-
 source_datasets = ['Crop', 'ElectricDevices', 'StarLightCurves', 'Wafer', 'ECG5000', 'TwoPatterns', 'FordA',
                    'UWaveGestureLibraryAll', 'UWaveGestureLibraryX', 'UWaveGestureLibraryY', 'UWaveGestureLibraryZ',
                    'FordB', 'ChlorineConcentration', 'NonInvasiveFetalECGThorax1', 'NonInvasiveFetalECGThorax2']
@@ -56,51 +21,51 @@ target_datasets = target_min_datasets + target_med_datasets + target_max_dataset
 print(target_datasets)
 print(len(source_datasets), len(target_datasets))
 
-i = 0
-for dataset in source_datasets:  ## cls pretrain
-    print("i = ", i, "dataset_name = ", dataset)
-    i = i + 1
-    '''
-    python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss cross_entropy --cuda cuda:1;
-    '''
-    with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
-        f.write(
-            'python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
-            '--dataroot /SSD/lz/UCRArchive_2018 '
-            '--dataset ' + dataset
-            + ' --mode pretrain --epoch 2000 ' +
-            ' --loss cross_entropy --cuda cuda:1' + ';\n')
+# i = 0
+# for dataset in source_datasets:  ## cls pretrain
+#     print("i = ", i, "dataset_name = ", dataset)
+#     i = i + 1
+#     '''
+#     python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss cross_entropy --cuda cuda:1;
+#     '''
+#     with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
+#         f.write(
+#             'python train.py --backbone fcn --task classification --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+#             '--dataroot /SSD/lz/UCRArchive_2018 '
+#             '--dataset ' + dataset
+#             + ' --mode pretrain --epoch 2000 --classifier linear' +
+#             ' --loss cross_entropy --cuda cuda:1' + ';\n')
 
-i = 0
-for dataset in source_datasets:  ## rec fcn pretrain
-    print("i = ", i, "dataset_name = ", dataset)
-    i = i + 1
-    '''
-      python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone fcn --cuda cuda:1;
-    '''
-    with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
-        f.write(
-            'python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
-            '--dataroot /SSD/lz/UCRArchive_2018 '
-            '--dataset ' + dataset
-            + ' --mode pretrain --epoch 2000 ' +
-            ' --loss reconstruction --decoder_backbone fcn --cuda cuda:1' + ';\n')
+# i = 0
+# for dataset in source_datasets:  ## rec fcn pretrain
+#     print("i = ", i, "dataset_name = ", dataset)
+#     i = i + 1
+#     '''
+#       python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone fcn --cuda cuda:1;
+#     '''
+#     with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
+#         f.write(
+#             'python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+#             '--dataroot /SSD/lz/UCRArchive_2018 '
+#             '--dataset ' + dataset
+#             + ' --mode pretrain --epoch 2000 --classifier linear' +
+#             ' --loss reconstruction --decoder_backbone fcn --cuda cuda:1' + ';\n')
 
-i = 0
-for dataset in source_datasets:  ## rec rnn pretrain
-    print("i = ", i, "dataset_name = ", dataset)
-    i = i + 1
-
-    '''
-     python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone rnn --cuda cuda:1;
-    '''
-    with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
-        f.write(
-            'python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
-            '--dataroot /SSD/lz/UCRArchive_2018 '
-            '--dataset ' + dataset
-            + ' --mode pretrain --epoch 2000 ' +
-            ' --loss reconstruction --decoder_backbone rnn --cuda cuda:1' + ';\n')
+# i = 0
+# for dataset in source_datasets:  ## rec rnn pretrain
+#     print("i = ", i, "dataset_name = ", dataset)
+#     i = i + 1
+#
+#     '''
+#      python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode pretrain --epoch 20  --loss reconstruction --decoder_backbone rnn --cuda cuda:1;
+#     '''
+#     with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
+#         f.write(
+#             'python train.py --backbone fcn --task reconstruction --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+#             '--dataroot /SSD/lz/UCRArchive_2018 '
+#             '--dataset ' + dataset
+#             + ' --mode pretrain --epoch 2000 --classifier linear' +
+#             ' --loss reconstruction --decoder_backbone rnn --cuda cuda:1' + ';\n')
 
 i = 0
 for source_dataset in source_datasets:  ## cls finetune
@@ -109,16 +74,16 @@ for source_dataset in source_datasets:  ## cls finetune
     for target_dataset in target_datasets:
         ### finetune cls
         '''
-         python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --source_dataset Coffee --transfer_strategy classification --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
+         python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --source_dataset Coffee --transfer_strategy classification --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
         '''
         with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
             f.write(
-                'python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+                'python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataroot /SSD/lz/UCRArchive_2018 '
                 '--dataset ' + target_dataset
-                + ' --mode finetune --epoch 1000 ' +
+                + ' --mode finetune --epoch 1000 --classifier linear' +
                 ' --loss cross_entropy --source_dataset ' + source_dataset + ' --transfer_strategy classification '
-                                                                             '--cuda cuda:1 --save_csv_name ' + source_dataset + '_finetune_cls_0418_' + ';\n')
+                                                                             '--cuda cuda:0 --save_csv_name ' + source_dataset + '_finetune_cls_0408_' + ';\n')
 
 i = 0
 for source_dataset in source_datasets:  ## rec fcn finetune
@@ -127,16 +92,16 @@ for source_dataset in source_datasets:  ## rec fcn finetune
     for target_dataset in target_datasets:
         ### finetune rec fcn
         '''
-        python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone fcn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
+        python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone fcn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
         '''
         with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
             f.write(
-                'python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+                'python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataroot /SSD/lz/UCRArchive_2018 '
                 '--dataset ' + target_dataset
-                + ' --mode finetune --epoch 1000 ' +
+                + ' --mode finetune --epoch 1000 --classifier linear' +
                 ' --loss cross_entropy --decoder_backbone fcn --source_dataset ' + source_dataset + ' --transfer_strategy reconstruction '
-                                                                                                    '--cuda cuda:1 --save_csv_name ' + source_dataset + '_finetune_rec_fcn_0418_' + ';\n')
+                                                                                                    '--cuda cuda:0 --save_csv_name ' + source_dataset + '_finetune_cls_0408_' + ';\n')
 
 i = 0
 for source_dataset in source_datasets:  ## rec rnn finetune
@@ -145,16 +110,15 @@ for source_dataset in source_datasets:  ## rec rnn finetune
     for target_dataset in target_datasets:
         ### finetune rec rnn
         '''
-        python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone rnn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
+        python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single --dataset Coffee --mode finetune --epoch 20  --loss cross_entropy --decoder_backbone rnn --source_dataset Coffee --transfer_strategy reconstruction --cuda cuda:1 --save_csv_name test_fcn_nonlin_single_norm_0409_;
         '''
         with open('/SSD/lz/time_tsm/scripts/transfer_pretrain_finetune.sh', 'a') as f:
             f.write(
-                'python train.py --backbone fcn --task classification --classifier nonlinear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
+                'python train.py --backbone fcn --task classification --classifier linear --classifier_input 128 --dataroot /SSD/lz/UCRArchive_2018 --normalize_way single '
                 '--dataroot /SSD/lz/UCRArchive_2018 '
                 '--dataset ' + target_dataset
-                + ' --mode finetune --epoch 1000 ' +
+                + ' --mode finetune --epoch 1000 --classifier linear' +
                 ' --loss cross_entropy --decoder_backbone rnn --source_dataset ' + source_dataset + ' --transfer_strategy reconstruction '
-                                                                                                    '--cuda cuda:1 --save_csv_name ' + source_dataset + '_finetune_rec_rnn_0418_' + ';\n')
+                                                                                                    '--cuda cuda:0 --save_csv_name ' + source_dataset + '_finetune_cls_0408_' + ';\n')
 
 ## nohup ./scripts/transfer_pretrain_finetune.sh &
-## nohup ./scripts/ex1_transfer_pretrain_add.sh &
