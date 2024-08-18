@@ -49,7 +49,7 @@
 6. To train and evaluate TS2Vec on a dataset, run the following command:
 
    ```python
-   python train.py <dataset_name> <run_name> --loader <loader> --repr-dims 320 --gpu <gpu_device_id> --seed 42 --eval
+   python train_ts2vec.py <dataset_name> <run_name> --loader <loader> --repr-dims 320 --gpu <gpu_device_id> --seed 42 --eval
    ```
 
 For detailed options and examples, please refer to `ts_anomaly_detection_methods/other_anomaly_baselines/scripts/ucr.sh`

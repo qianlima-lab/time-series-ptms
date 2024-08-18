@@ -1,0 +1,100 @@
+datasets:
+  ETTh1:
+    root_path: ./dataset/ETT-small/
+    data_path: ETTh1.csv
+    data_name: etth1
+    data: ett_h
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  ETTh2:
+    root_path: ./dataset/ETT-small/
+    data_path: ETTh2.csv
+    data_name: etth2
+    data: ett_h
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  ETTm1:
+    root_path: ./dataset/ETT-small/
+    data_path: ETTm1.csv
+    data_name: ettm1
+    data: ett_m
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  ETTm2:
+    root_path: ./dataset/ETT-small/
+    data_path: ETTm2.csv
+    data_name: ettm2
+    data: ett_m
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  traffic:
+    root_path: ./dataset/traffic/
+    data_path: traffic.csv
+    data_name: traffic
+    data: custom
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  weather:
+    root_path: ./dataset/weather/
+    data_path: weather.csv
+    data_name: weather
+    data: custom
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  electricity:
+    root_path: ./dataset/electricity/
+    data_path: electricity.csv
+    data_name: electricity
+    data: custom
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  ILI:
+    root_path: ./dataset/illness/
+    data_path: national_illness.csv
+    data_name: ILI
+    data: custom
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100
+  exchange:
+    root_path: ./dataset/exchange_rate/
+    data_path: exchange_rate.csv
+    data_name: exchange
+    data: custom
+    lradj: type4
+    features: M
+    target: OT
+    embed: timeF
+    freq: 0
+    percent: 100

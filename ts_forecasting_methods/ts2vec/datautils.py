@@ -5,7 +5,7 @@ import math
 import random
 from datetime import datetime
 import pickle
-from utils import pkl_load, pad_nan_to_target
+from ts2vec.utils import pkl_load, pad_nan_to_target
 from scipy.io.arff import loadarff
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
@@ -135,7 +135,11 @@ def _get_time_features(dt):
 
 
 def load_forecast_csv(name, univar=False):
-    data = pd.read_csv(f'datasets/{name}.csv', index_col='date', parse_dates=True)
+    # parser.add_argument('--root_path', type=str, default='/SSD/lz/ts_forecasting_methods/ts2vec/datasets',
+    #                     help='root path of the data file')
+    data = pd.read_csv(f'/SSD/lz/ts_forecasting_methods/ts2vec/datasets/{name}.csv', index_col='date', parse_dates=True)
+
+    print("raw dataset.shape = ", data.shape)
     dt_embed = _get_time_features(data.index)
     n_covariate_cols = dt_embed.shape[-1]
     
@@ -162,17 +166,24 @@ def load_forecast_csv(name, univar=False):
         test_slice = slice(int(0.8 * len(data)), None)
     
     scaler = StandardScaler().fit(data[train_slice])
+    print("data[train_slice].shape = ", data[train_slice].shape)
+    print("pre0 data.shape = ", data.shape)
     data = scaler.transform(data)
+
+    print("pre dataset.shape = ", data.shape)
+    print("train val test slice = ", train_slice, valid_slice, test_slice)
     if name in ('electricity'):
         data = np.expand_dims(data.T, -1)  # Each variable is an instance rather than a feature
     else:
         data = np.expand_dims(data, 0)
-    
+    print("pre2 dataset.shape = ", data.shape)
     if n_covariate_cols > 0:
         dt_scaler = StandardScaler().fit(dt_embed[train_slice])
+        print("dt_embed.shape = ", dt_embed.shape)
         dt_embed = np.expand_dims(dt_scaler.transform(dt_embed), 0)
+        print("22 dt_embed.shape = ", dt_embed.shape)
         data = np.concatenate([np.repeat(dt_embed, data.shape[0], axis=0), data], axis=-1)
-    
+    print("pre3 dt_embed dataset.shape = ", data.shape)
     if name in ('ETTh1', 'ETTh2', 'electricity'):
         pred_lens = [24, 48, 168, 336, 720]
     else:

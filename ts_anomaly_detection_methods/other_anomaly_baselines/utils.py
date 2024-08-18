@@ -129,3 +129,31 @@ def init_dl_program(
         torch.backends.cuda.matmul.allow_tf32 = use_tf32
         
     return devices if len(devices) > 1 else devices[0]
+
+
+def split_N_pad(series,window_size):
+    assert len(series.shape)==2
+    ret=[]
+    l=series.shape[0]
+    for i in range(l//window_size):
+        ret.append(series[i*window_size:(i+1)*window_size,:])
+    left = l-l//window_size*window_size
+    '''TODO:pad'''
+    if left!=0:
+        p = np.zeros([window_size,series.shape[1]])
+        p[:left,:]=series[-left:,:]
+        ret.append(p)
+    return ret
+
+
+'''for AT'''
+def data_slice(data,window_size):
+    '''
+    data : [size,length,dim]
+    '''
+    assert len(data.shape)==3
+    ret=[]
+    for i in range(data.shape[0]):
+        series = data[i]
+        ret.extend(split_N_pad(series,window_size))
+    return np.array(ret)

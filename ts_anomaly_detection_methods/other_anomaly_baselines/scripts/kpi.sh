@@ -1,5 +1,2 @@
-python train.py kpi anomaly_0 --loader anomaly --repr-dims 320 --gpu 0 --seed 42 --eval
-
-python train_donut.py kpi anomaly_0 --loader anomaly --gpu 0 --seed 42 --eval
-
-python train_lstm_vae.py kpi anomaly_0 --loader anomaly --gpu 0 --seed 42 --eval
+python train_at_uni.py --dataset kpi --batch_size 8 --save_csv_name train_at_uni_0720_.csv --cuda cuda:0;
+python train_at_uni.py --dataset yahoo --batch_size 8 --save_csv_name train_at_uni_0720_.csv --cuda cuda:0;

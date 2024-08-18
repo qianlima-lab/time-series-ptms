@@ -119,6 +119,7 @@ class SPOT:
 		    data for the run (list, np.array or pd.series)
 	
         """
+        # print("init_data.shape = ", init_data.shape, ", data.shape = ", data.shape)
         if isinstance(data,list):
             self.data = np.array(data)
         elif isinstance(data,np.ndarray):
@@ -235,7 +236,16 @@ class SPOT:
         """
         if method == 'regular':
             step = (bounds[1]-bounds[0])/(npoints+1)
-            X0 = np.arange(bounds[0]+step,bounds[1],step)
+            # print("step = ", step, ", bounds[0] = ", bounds[0], ", bounds[1] = ", bounds[1])
+            if step == 0:
+                X0 = np.random.uniform(bounds[0],bounds[1],npoints)
+            else:
+                X0 = np.arange(bounds[0]+step,bounds[1],step)
+
+            ## for the ucr 239 240 241
+            # step = (bounds[1] - bounds[0]) / (npoints+1)
+            # # print("step = ", step, ", bounds[0] = ", bounds[0], ", bounds[1] = ", bounds[1])
+            # X0 = np.arange(bounds[0], bounds[1], step)
         elif method == 'random':
             X0 = np.random.uniform(bounds[0],bounds[1],npoints)
         
@@ -420,9 +430,10 @@ class SPOT:
         # list of the thresholds
         th = []
         alarm = []
+        scores = []
         # Loop over the stream
         for i in tqdm.tqdm(range(self.data.size)):
-    
+            scores.append(self.data[i])
             # If the observed value exceeds the current threshold (alarm case)
             if self.data[i]>self.extreme_quantile:
                 # if we want to alarm, we put it in the alarm list
@@ -437,6 +448,7 @@ class SPOT:
 
                     g,s,l = self._grimshaw()
                     self.extreme_quantile = self._quantile(g,s)
+
 
             # case where the value exceeds the initial threshold but not the alarm ones
             elif self.data[i]>self.init_threshold:
@@ -454,7 +466,7 @@ class SPOT:
                 
             th.append(self.extreme_quantile) # thresholds record
         
-        return {'thresholds' : th, 'alarms': alarm}
+        return {'thresholds' : th, 'alarms': alarm, 'scores': scores}
     
 
     def plot(self,run_results,with_alarm = True):
@@ -903,9 +915,11 @@ class dSPOT:
         # list of the thresholds
         th = []
         alarm = []
+        scores = []
         # Loop over the stream
         for i in tqdm.tqdm(range(self.data.size)):
             Mi = W.mean()
+            scores.append((self.data[i]-Mi))
             # If the observed value exceeds the current threshold (alarm case)
             if (self.data[i]-Mi)>self.extreme_quantile:
                 # if we want to alarm, we put it in the alarm list
@@ -940,7 +954,7 @@ class dSPOT:
                 
             th.append(self.extreme_quantile+Mi) # thresholds record
         
-        return {'thresholds' : th, 'alarms': alarm}
+        return {'thresholds' : th, 'alarms': alarm, 'scores': scores}
     
 
     def plot(self,run_results, with_alarm = True):

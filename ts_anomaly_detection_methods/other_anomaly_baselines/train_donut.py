@@ -1,3 +1,11 @@
+import os
+import sys
+
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
+
 import torch
 import numpy as np
 import argparse
@@ -23,9 +31,15 @@ def save_checkpoint_callback(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('dataset', help='The dataset name')
-    parser.add_argument('run_name', help='The folder name used to save model, output and evaluation metrics. This can be set to any word')
-    parser.add_argument('--loader', type=str, required=True, help='The data loader used to load the experimental data--anomaly')
+    parser.add_argument('--dataset', default='kpi',
+                        help='The dataset name, yahoo, kpi')  ##  SMD, MSL, SMAP, PSM, SWAT, NIPS_TS_Swan, UCR, NIPS_TS_Water
+    parser.add_argument('--is_multi', default=False, help='The dataset name, yahoo, kpi')
+    parser.add_argument('--datapath', default='./datasets/', help='')
+    parser.add_argument('--index', type=int, default=143, help='')
+    parser.add_argument('--run_name', default='donut', help='The folder name used to save model, output and evaluation metrics. This can be set to any word')
+    # parser.add_argument('--loader', type=str, required=True, help='The data loader used to load the experimental data--anomaly')
+    parser.add_argument('--loader', type=str, default='anomaly',
+                        help='The data loader used to load the experimental data--anomaly')
     parser.add_argument('--gpu', type=int, default=0, help='The gpu no. used for training and inference (defaults to 0)')
     parser.add_argument('--batch-size', type=int, default=8, help='The batch size (defaults to 8)')
     parser.add_argument('--lr', type=float, default=0.001, help='The learning rate (defaults to 0.001)')
@@ -39,8 +53,12 @@ if __name__ == '__main__':
     parser.add_argument('--save-every', type=int, default=None, help='Save the checkpoint every <save_every> iterations/epochs')
     parser.add_argument('--seed', type=int, default=None, help='The random seed')
     parser.add_argument('--max-threads', type=int, default=None, help='The maximum allowed number of threads used by this process')
-    parser.add_argument('--eval', action="store_true", help='Whether to perform evaluation after training')
+    parser.add_argument('--eval', default=True, help='Whether to perform evaluation after training')
     parser.add_argument('--irregular', type=float, default=0, help='The ratio of missing observations (defaults to 0)')
+
+    parser.add_argument('--save_dir', type=str, default='/dev_data/lz/tsm_ptms_anomaly_detection/result/')
+    parser.add_argument('--save_csv_name', type=str, default='donut_uni_0723.csv')
+
     args = parser.parse_args()
     
     print("Dataset:", args.dataset)
@@ -51,8 +69,32 @@ if __name__ == '__main__':
     print('Loading data... ', end='')
     if args.loader == 'anomaly':
         task_type = 'anomaly_detection'
-        all_train_data, all_train_labels, all_train_timestamps, all_test_data, all_test_labels, all_test_timestamps, delay = datautils.load_anomaly(args.dataset)
-        train_data = datautils.gen_ano_train_data(all_train_data)   
+
+        if args.is_multi:
+            from datasets.data_loader import get_loader_segment
+
+            data_path = args.datapath + args.dataset + '/'
+            print("data_path = ", data_path)
+            _, train_data_loader = get_loader_segment(args.index, data_path, args.batch_size, win_size=100, step=100,
+                                                      mode='train',
+                                                      dataset=args.dataset)
+
+            all_train_data = train_data_loader.train
+            all_train_labels = None
+            all_train_timestamps = None
+            all_test_data = train_data_loader.test
+            all_test_labels = train_data_loader.test_labels
+            all_test_timestamps = None
+            delay = 5
+
+            print("all_train_data test_data, test_labels.shape = ", all_train_data.shape, all_test_data.shape,
+                  all_test_labels.shape)
+            train_data = np.expand_dims(all_train_data, axis=0)
+            print("train_data.shape = ", train_data.shape)
+            print("Read Success!!!")
+        else:
+            all_train_data, all_train_labels, all_train_timestamps, all_test_data, all_test_labels, all_test_timestamps, delay = datautils.load_anomaly(args.dataset)
+            train_data = datautils.gen_ano_train_data(all_train_data)
     else:
         raise ValueError(f"Unknown loader {args.loader}.")
         
@@ -99,11 +141,35 @@ if __name__ == '__main__':
 
     if args.eval:
         if task_type == 'anomaly_detection':
-            out, eval_res = model.evaluate(model, all_train_data, all_train_labels, all_train_timestamps, all_test_data, all_test_labels, all_test_timestamps, delay)
+            out, eval_res = model.evaluate(model, all_train_data, all_train_labels, all_train_timestamps, all_test_data, all_test_labels, all_test_timestamps, delay, is_multi=args.is_multi)
         else:
             assert False
         pkl_save(f'{run_dir}/out.pkl', out)
         pkl_save(f'{run_dir}/eval_res.pkl', eval_res)
         print('Evaluation result:', eval_res)
+
+        eval_res['dataset'] = args.dataset + str(args.index)
+        import pandas as pd
+
+        # 转换字典为 DataFrame
+        df = pd.DataFrame([eval_res])
+        # 指定保存路径
+        save_path = args.save_dir + args.save_csv_name
+
+        # 转换字典为 DataFrame
+        df_new = pd.DataFrame([eval_res])
+
+        # 检查文件是否存在
+        if os.path.exists(save_path):
+            # 文件存在，读取现有数据
+            df_existing = pd.read_csv(save_path, index_col=0)
+            # 将新数据附加到现有数据框中
+            df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+        else:
+            # 文件不存在，创建新的数据框
+            df_combined = df_new
+
+        # 保存 DataFrame 为 CSV 文件
+        df_combined.to_csv(save_path, index=True, index_label="id")
 
     print("Finished.")

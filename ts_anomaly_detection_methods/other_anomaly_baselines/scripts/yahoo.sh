@@ -1,5 +1,2 @@
-python train.py yahoo anomaly_0 --loader anomaly --repr-dims 320 --gpu 0 --seed 42 --eval
-
-python train_donut.py yahoo anomaly_0 --loader anomaly --gpu 0 --seed 42 --eval
-
-python train_lstm_vae.py yahoo anomaly_0 --loader anomaly --gpu 0 --seed 42 --eval
+python train_dcdetector_nui.py --anormly_ratio 1 --dataset kpi --save_csv_name train_dcdetector_nui_hm_0720.csv --gpu 0;
+python train_dcdetector_nui.py --anormly_ratio 1 --dataset yahoo --save_csv_name train_dcdetector_nui_hm_0720.csv --gpu 0;

@@ -10,7 +10,7 @@ Specifically, we first briefly introduce the typical deep learning models employ
 Further, extensive experiments {}{involving  27 methods, 434 datasets, and 679 transfer learning scenarios} are conducted to analyze the advantages and disadvantages of transfer learning strategies, Transformer-based models, and representative TS-PTMs. Finally, we point out some potential directions of TS-PTMs for future work.
 
 <p align="center">
-    <img src="pictures/framework.png" width="1000" align="center">
+    <img src="pictures/framework.jpg" width="1000" align="center">
 </p>
 
 
