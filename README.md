@@ -50,7 +50,7 @@ The datasets used in this project are as follows:
 
 
 ## Pre-Trained Models on Time Series Forecasting
-For details, please refer to [ts_classification_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_forecasting_methods/README.md).
+For details, please refer to [ts_classification_methods/README](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/README.md).
 
 ## Pre-Trained Models on Time Series Forecasting
 For details, please refer to [ts_forecating_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_forecasting_methods/README.md).
