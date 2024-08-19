@@ -15,6 +15,6 @@ This is the time-series forecasting training code for our paper *"A Survey on Ti
 |  9   |            [DLinear](https://arxiv.org/pdf/2205.13504)            | 2023 |   ICLR    | [github_link](https://github.com/vivva/DLinear) |
 |  10   |            [GPT4TS](https://arxiv.org/abs/2302.11939)            | 2023 |   NeurIPS    | [github_link](https://github.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All) |
 |  11   |            [TEMPO](https://openreview.net/forum?id=YH5w12OUuU)            | 2024 |   ICLR    | [github_link](https://github.com/DC-research/TEMPO) |
-|  12   |            [iTransformer](https://openreview.net/forum?id=JePfAI8fah)            | 2024 |   ICLR    | [github_link](hhttps://github.com/thuml/iTransformer) |
+|  12   |            [iTransformer](https://openreview.net/forum?id=JePfAI8fah)            | 2024 |   ICLR    | [github_link](https://github.com/thuml/iTransformer) |
 
 For details, please refer to [ts_forecasting_methods/Other_baselines/README](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_forecasting_methods/Other_baselines/README.md)
