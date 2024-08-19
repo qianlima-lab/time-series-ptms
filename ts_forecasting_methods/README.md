@@ -17,4 +17,4 @@ This is the time-series forecasting training code for our paper *"A Survey on Ti
 |  11   |            [TEMPO](https://openreview.net/forum?id=YH5w12OUuU)            | 2024 |   ICLR    | [github_link](https://github.com/DC-research/TEMPO) |
 |  12   |            [iTransformer](https://openreview.net/forum?id=JePfAI8fah)            | 2024 |   ICLR    | [github_link](hhttps://github.com/thuml/iTransformer) |
 
-For details, please refer to [ts_forecasting_methods/Other_baselines/README]()
+For details, please refer to [ts_forecasting_methods/Other_baselines/README](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_forecasting_methods/Other_baselines/README.md)
