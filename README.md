@@ -50,10 +50,50 @@ The datasets used in this project are as follows:
 
 
 ## Pre-Trained Models on Time Series Forecasting
+- [x] [FCN](https://github.com/cauchyturing/UCR_Time_Series_Classification_Deep_Learning_Baseline)
+- [x] [FCN Encoder+CNN Decoder](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/model/tsm_model.py)
+- [x] [FCN Encoder+RNN Decoder](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/model/tsm_model.py)
+- [x] [TCN](https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries)
+- [x] [Transformer](https://github.com/gzerveas/mvts_transformer)
+- [x] [TST](https://github.com/gzerveas/mvts_transformer)
+- [x] [T-Loss](https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries)
+- [x] [SelfTime](https://github.com/haoyfan/SelfTime)
+- [x] [TS-TCC](https://github.com/emadeldeen24/TS-TCC)
+- [x] [TS2Vec](https://github.com/zhihanyue/ts2vec)
+- [x] [TimesNet](https://github.com/thuml/TimesNet)
+- [x] [PatchTST](https://github.com/yuqinie98/PatchTST)
+- [x] [GPT4TS](https://github.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All)
+
 For details, please refer to [ts_classification_methods/README](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/README.md).
 
 ## Pre-Trained Models on Time Series Forecasting
+
+- [x] [LogTrans](https://github.com/AIStream-Peelout/flow-forecast)
+- [x] [TCN](https://github.com/locuslab/TCN)
+- [x] [Informer](https://github.com/zhouhaoyi/Informer2020)
+- [x] [Autoformer](https://github.com/thuml/autoformer)
+- [x] [TS2Vec](https://github.com/zhihanyue/ts2vec)
+- [x] [CoST](https://github.com/salesforce/CoST)
+- [x] [TimesNet](https://github.com/thuml/TimesNet)
+- [x] [PatchTST](https://github.com/yuqinie98/PatchTST)
+- [x] [DLinear](https://github.com/vivva/DLinear)
+- [x] [GPT4TS](https://github.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All)
+- [x] [TEMPO](https://github.com/DC-research/TEMPO)
+- [x] [iTransformer](https://github.com/thuml/iTransformer)
+
 For details, please refer to [ts_forecating_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_forecasting_methods/README.md).
 
 ## Pre-Trained Models on Time Series Anomaly Detection
+
+- [x] [SPOT](https://github.com/limjcst/ads-evt)
+- [x] [DSPOT](https://github.com/limjcst/ads-evt)
+- [x] [LSTM-VAE](https://github.com/SchindlerLiang/VAE-for-Anomaly-Detection)
+- [x] [DONUT](https://github.com/NetManAIOps/donut)
+- [x] [Spectral Residual (SR)](https://dl.acm.org/doi/10.1145/3292500.3330680)
+- [x] [Anomaly Transformer (AT)](https://github.com/spencerbraun/anomaly_transformer_pytorch)
+- [x] [TS2Vec](https://github.com/zhihanyue/ts2vec)
+- [x] [TimesNet](https://github.com/thuml/TimesNet)
+- [x] [GPT4TS](https://github.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All)
+- [x] [DCdetector](https://github.com/DAMO-DI-ML/KDD2023-DCdetector)
+
 For details, please refer to [ts_anomaly_detection_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_anomaly_detection_methods/README.md).

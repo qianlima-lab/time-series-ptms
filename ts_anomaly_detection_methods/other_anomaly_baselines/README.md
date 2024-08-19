@@ -11,6 +11,8 @@
 |  5   |  [SR*](https://dl.acm.org/doi/abs/10.1145/3292500.3330680)   | 2019 |    KDD    |                              -                               |
 |  6   |            [AT](https://arxiv.org/abs/2110.02642)            | 2022 |   ICLR    | [github_link](https://github.com/spencerbraun/anomaly_transformer_pytorch) |
 |  7   | [TS2Vec](https://www.aaai.org/AAAI22Papers/AAAI-8809.YueZ.pdf) | 2022 |   AAAI    |      [github_link](https://github.com/yuezhihan/ts2vec)      |
+
+
 1. To train and evaluate SPOT/DSPOT on a dataset, set the dataset_name `dataset='yahoo' or 'kpi'`, and then run the following command:
 
    ```python
@@ -52,4 +54,20 @@
    python train_ts2vec.py <dataset_name> <run_name> --loader <loader> --repr-dims 320 --gpu <gpu_device_id> --seed 42 --eval
    ```
 
-For detailed options and examples, please refer to `ts_anomaly_detection_methods/other_anomaly_baselines/scripts/ucr.sh`
+7. To train and evaluate TimesNet on a dataset, run the following command:
+
+   ```python
+   python train_timesnet.py <dataset_name> <run_name> ...
+   ```
+
+8. To train and evaluate GPT4TS on a dataset, run the following command:
+
+   ```python
+   python train_gpt4ts.py <dataset_name> <run_name> ...
+   ```
+   
+9. To train and evaluate DCdetector on a dataset, run the following command:
+
+   ```python
+   python train_dcdetector.py <dataset_name> <run_name> ...
+   ```
