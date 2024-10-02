@@ -49,7 +49,7 @@ The datasets used in this project are as follows:
 
 
 
-## Pre-Trained Models on Time Series Forecasting
+## Pre-Trained Models on Time Series Classification
 - [x] [FCN](https://github.com/cauchyturing/UCR_Time_Series_Classification_Deep_Learning_Baseline)
 - [x] [FCN Encoder+CNN Decoder](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/model/tsm_model.py)
 - [x] [FCN Encoder+RNN Decoder](https://github.com/qianlima-lab/time-series-ptms/blob/master/ts_classification_methods/model/tsm_model.py)
