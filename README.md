@@ -1,6 +1,6 @@
 # A Survey on Time-Series Pre-Trained Models
 
-This is the training code for our paper *"A Survey on Time-Series Pre-Trained Models"*
+This is the training code for our paper *"A Survey on Time-Series Pre-Trained Models"*, which has been accepted for publication in the IEEE Transactions on Knowledge and Data Engineering (TKDE-24).
 
 ## Overview
 
@@ -97,3 +97,19 @@ For details, please refer to [ts_forecating_methods/README](https://github.com/q
 - [x] [DCdetector](https://github.com/DAMO-DI-ML/KDD2023-DCdetector)
 
 For details, please refer to [ts_anomaly_detection_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_anomaly_detection_methods/README.md).
+
+## Acknowledgments
+We thank Professor **Eamonn Keogh** and all the people who have contributed to the UCR\&UEA time series archives and other time series datasets. The authors would like to thank 
+Professor **Garrison W. Cottrell** from UCSD, and **Chuxin Chen**, **Xidi Cai**, **Yu Chen**, and **Peitian Ma** from SCUT for the helpful suggestions. 
+
+## Citation
+If you use this code for your research, please cite our paper:
+```
+@article{ma2024survey,
+  title={A survey on time-series pre-trained models},
+  author={Ma, Qianli and Liu, Zhen and Zheng, Zhenjing and Huang, Ziyang and Zhu, Siying and Yu, Zhongzhong and Kwok, James T},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  year={2024}
+}
+```
+
