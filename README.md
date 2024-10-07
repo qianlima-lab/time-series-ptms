@@ -99,7 +99,7 @@ For details, please refer to [ts_forecating_methods/README](https://github.com/q
 For details, please refer to [ts_anomaly_detection_methods/README](https://github.com/qianlima-lab/transfer-to-transformer-tsm/blob/master/ts_anomaly_detection_methods/README.md).
 
 ## Acknowledgments
-We thank Professor **Eamonn Keogh** from UCR and all the people who have contributed to the UCR\&UEA time series archives and other time series datasets. The authors would like to thank 
+We thank the anonymous reviewers for their helpful feedback. We thank Professor **Eamonn Keogh** from UCR and all the people who have contributed to the UCR\&UEA time series archives and other time series datasets. The authors would like to thank 
 Professor **Garrison W. Cottrell** from UCSD, and **Chuxin Chen**, **Xidi Cai**, **Yu Chen**, and **Peitian Ma** from SCUT for the helpful suggestions. 
 
 ## Citation
