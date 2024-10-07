@@ -1,6 +1,6 @@
-# [A Survey on Time-Series Pre-Trained Models](https://arxiv.org/abs/2305.10716v2)
+# [A Survey on Time-Series Pre-Trained Models](https://arxiv.org/pdf/2305.10716v2)
 
-This is the training code for our paper *"[A Survey on Time-Series Pre-Trained Models](https://arxiv.org/abs/2305.10716v2)"*, which has been accepted for publication in the IEEE Transactions on Knowledge and Data Engineering (TKDE-24).
+This is the training code for our paper *"[A Survey on Time-Series Pre-Trained Models](https://arxiv.org/pdf/2305.10716v2)"*, which has been accepted for publication in the IEEE Transactions on Knowledge and Data Engineering (TKDE-24).
 
 ## Overview
 
